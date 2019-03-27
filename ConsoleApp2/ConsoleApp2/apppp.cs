@@ -98,7 +98,7 @@ namespace ConsoleApp2
 
             }).Start();
 
-            Gpio pin26 = new Gpio(26);
+            Gpio pin26 = new Gpio(21);
 
             Console.WriteLine("Commands\n"+
                               "setPin26\n"+
