@@ -98,6 +98,16 @@ namespace ConsoleApp2
 
             }).Start();
 
+            Gpio pin26 = new Gpio(26);
+
+            Console.WriteLine("Commands\n"+
+                              "setPin26\n"+
+                              "setPin26-1\n"+
+                              "setPin26-0\n"+
+                              "q"
+                );
+
+
             while (true)
             {
                 Console.WriteLine("Enter command");
@@ -107,6 +117,15 @@ namespace ConsoleApp2
                 switch (command)
                 {
 
+                    case "setPin26":
+                        pin26.SetPin();
+                        break;
+                    case "setPin26-1":
+                        pin26.SetState(Gpio.PinStat.Hi);
+                        break;
+                    case "setPin2-0":
+                        pin26.SetState(Gpio.PinStat.Low);
+                        break;
                     case "q":
                         break;
                 }
