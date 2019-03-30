@@ -76,7 +76,7 @@ namespace ConsoleApp2
             Console.WriteLine("Enter port mane, press Enter for /dev/ttyUSB1");
             string portName = Console.ReadLine();
 
-            if(portName== "")
+            if(portName== "a")
             {
                 portName = "/dev/ttyUSB1";
                 
