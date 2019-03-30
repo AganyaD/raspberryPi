@@ -119,8 +119,10 @@ namespace ConsoleApp2
             {
                 pin26.SetState(Gpio.PinStat.Hi);
                 Console.WriteLine("set pin 26 hi");
+                port.WriteLine("set pin 26 hi");
                 Thread.Sleep(500);
                 pin26.SetState(Gpio.PinStat.Low);
+                port.WriteLine("set pin 26 low");
                 Console.WriteLine("set pin 26 low");
                 Thread.Sleep(500);
 
