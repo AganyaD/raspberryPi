@@ -73,17 +73,25 @@ namespace ConsoleApp2
             if (interface_port!= null)
             {
                 if (interface_port.IsOpen)
-                    interface_port.WriteLine(mes);
+                    interface_port.WriteLine(mes+"\n");
             }
             
             
         }
 
-
+        List<Gpio> LedList = new List<Gpio>();
         void initGpios()
         {
 
-
+            LedList[0] = new Gpio(26);
+            LedList[0] = new Gpio(19);
+            LedList[0] = new Gpio(13);
+            LedList[0] = new Gpio(6);
+            LedList[0] = new Gpio(5);
+            LedList[0] = new Gpio(12);
+            LedList[0] = new Gpio(16);
+            LedList[0] = new Gpio(20);
+            LedList[0] = new Gpio(21);
         }
 
         public void start()
@@ -92,6 +100,8 @@ namespace ConsoleApp2
             printMessage("program start");
 
             printMessage("init GPIOs");
+
+            initGpios();
 
             printPorts();
             printMessage("set serial port");
@@ -138,7 +148,7 @@ namespace ConsoleApp2
             }
 
 
-            Gpio pin26 = new Gpio(26);
+           
             //pin26.SetPin();
 
             //Console.WriteLine("Commands\n"+
@@ -151,11 +161,19 @@ namespace ConsoleApp2
 
             while (true)
             {
-                pin26.SetState(Gpio.PinStat.Hi);
+                for (int i=0;i<LedList.Count;i++)
+                {
+                    LedList[i].SetState(Gpio.PinStat.Hi);
+                }
+                
                 Console.WriteLine("set pin 26 hi");
                 interface_port.WriteLine("set pin 26 hi");
                 Thread.Sleep(500);
-                pin26.SetState(Gpio.PinStat.Low);
+                for (int i = 0; i < LedList.Count; i++)
+                {
+                    LedList[i].SetState(Gpio.PinStat.Low);
+                }
+                
                 interface_port.WriteLine("set pin 26 low");
                 Console.WriteLine("set pin 26 low");
                 Thread.Sleep(500);
