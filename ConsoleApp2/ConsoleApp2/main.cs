@@ -83,15 +83,15 @@ namespace ConsoleApp2
         void initGpios()
         {
 
-            LedList[0] = new Gpio(26);
-            LedList[0] = new Gpio(19);
-            LedList[0] = new Gpio(13);
-            LedList[0] = new Gpio(6);
-            LedList[0] = new Gpio(5);
-            LedList[0] = new Gpio(12);
-            LedList[0] = new Gpio(16);
-            LedList[0] = new Gpio(20);
-            LedList[0] = new Gpio(21);
+            LedList.Add(new Gpio(26));
+            LedList.Add(new Gpio(19));
+            LedList.Add(new Gpio(13));
+            LedList.Add(new Gpio(6));
+            LedList.Add(new Gpio(5));
+            LedList.Add(new Gpio(12));
+            LedList.Add(new Gpio(16));
+            LedList.Add(new Gpio(20));
+            LedList.Add(new Gpio(21));
         }
 
         public void start()
