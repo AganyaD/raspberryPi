@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 using System.IO.Ports;
 
@@ -96,51 +97,58 @@ namespace ConsoleApp2
                 return;
             }
 
-            new System.Threading.Thread(() =>
-            {
-                System.Threading.Thread.CurrentThread.IsBackground = true;
+            //new System.Threading.Thread(() =>
+            //{
+            //    System.Threading.Thread.CurrentThread.IsBackground = true;
 
-                ReadSerial();
+            //    ReadSerial();
 
-            }).Start();
+            //}).Start();
 
             Gpio pin26 = new Gpio(26);
 
-            Console.WriteLine("Commands\n"+
-                              "setPin26\n"+
-                              "setPin26-1\n"+
-                              "setPin26-0\n"+
-                              "q"
-                );
+            //Console.WriteLine("Commands\n"+
+            //                  "setPin26\n"+
+            //                  "setPin26-1\n"+
+            //                  "setPin26-0\n"+
+            //                  "q"
+            //    );
 
 
             while (true)
             {
-                Console.WriteLine("Enter command");
-                string command = Console.ReadLine();
+                pin26.SetState(Gpio.PinStat.Hi);
+                Console.WriteLine("set pin 26 hi");
+                Thread.Sleep(500);
+                pin26.SetState(Gpio.PinStat.Low);
+                Console.WriteLine("set pin 26 low");
+                Thread.Sleep(500);
+
+                //Console.WriteLine("Enter command");
+                //string command = Console.ReadLine();
 
 
-                switch (command)
-                {
+                //switch (command)
+                //{
 
-                    case "setPin26":
-                        pin26.SetPin();
-                        break;
-                    case "setPin26-1":
-                        pin26.SetState(Gpio.PinStat.Hi);
-                        break;
-                    case "setPin2-0":
-                        pin26.SetState(Gpio.PinStat.Low);
-                        break;
-                    case "q":
-                        break;
-                }
+                //    case "setPin26":
+                //        pin26.SetPin();
+                //        break;
+                //    case "setPin26-1":
+                //        pin26.SetState(Gpio.PinStat.Hi);
+                //        break;
+                //    case "setPin2-0":
+                //        pin26.SetState(Gpio.PinStat.Low);
+                //        break;
+                //    case "q":
+                //        break;
+                //}
 
-                if (command == "q")
-                {
-                    Console.WriteLine("Exit program");
-                    break;
-                }
+                //if (command == "q")
+                //{
+                //    Console.WriteLine("Exit program");
+                //    break;
+                //}
 
             }
 
