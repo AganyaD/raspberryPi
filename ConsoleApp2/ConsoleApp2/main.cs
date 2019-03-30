@@ -117,7 +117,7 @@ namespace ConsoleApp2
             }
 
             portName = "empty staff";
-            Console.WriteLine("Main port mane /dev/ttyUSB0");
+            printMessage("Main port mane /dev/ttyUSB0");
             portName = "/dev/ttyUSB0";
 
             printMessage("open port in " + portName);
@@ -139,6 +139,7 @@ namespace ConsoleApp2
 
 
             Gpio pin26 = new Gpio(26);
+            pin26.SetPin();
 
             //Console.WriteLine("Commands\n"+
             //                  "setPin26\n"+
