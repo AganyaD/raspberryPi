@@ -13,6 +13,7 @@ namespace ConsoleApp2
     {
         List<string> comPortList;
         string receiveBuffer = "";
+        string receiveBuffer_i = "";
         string mesage = "";
         bool sendSpeedQury = false;
         double lastSpeed = 0;
@@ -21,8 +22,8 @@ namespace ConsoleApp2
         List<string> inFramList = new List<string>();
 
 
-        SerialPort port;
-
+        SerialPort interface_port;
+        SerialPort main_port;
         public class CanMessageData
         {
             byte[] Data = new byte[8];
@@ -66,44 +67,76 @@ namespace ConsoleApp2
 
         }
 
+        void printMessage(string mes)
+        {
+            Console.WriteLine(mes);
+            if (interface_port!= null)
+            {
+                if (interface_port.IsOpen)
+                    interface_port.WriteLine(mes);
+            }
+            
+            
+        }
+
+
+        void initGpios()
+        {
+
+
+        }
+
         public void start()
         {
 
-            Console.WriteLine("program start");
+            printMessage("program start");
+
+            printMessage("init GPIOs");
 
             printPorts();
-            Console.WriteLine("set serial port");
-            
-            Console.WriteLine("Enter port mane, press Enter for /dev/ttyUSB1");
-            string portName = Console.ReadLine();
+            printMessage("set serial port");
 
-            if(portName== "a")
-            {
-                portName = "/dev/ttyUSB1";
-                
-            }
-            Console.WriteLine(" open port in " + portName);
-            port = new SerialPort(portName, 115200);
+            printMessage("interface port mane /dev/ttyUSB1");
+            string portName = "";
+            portName = "/dev/ttyUSB1";  
+            printMessage("Interface open port in " + portName);
+            interface_port = new SerialPort(portName, 115200);
             try
             {
-                port.Open();
+                interface_port.Open();
+                new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.CurrentThread.IsBackground = true;
+                    ReadSerial_interface();
+                }).Start();
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                Console.WriteLine("press any key to exsit....");
-                Console.ReadKey();
+                printMessage(e.Message);
                 return;
             }
 
-            //new System.Threading.Thread(() =>
-            //{
-            //    System.Threading.Thread.CurrentThread.IsBackground = true;
+            portName = "empty staff";
+            Console.WriteLine("Main port mane /dev/ttyUSB0");
+            portName = "/dev/ttyUSB0";
 
-            //    ReadSerial();
+            printMessage("open port in " + portName);
+            main_port = new SerialPort(portName, 115200);
+            try
+            {
+                main_port.Open();
+                new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.CurrentThread.IsBackground = true;
+                    ReadSerial_main();
+                }).Start();
+            }
+            catch (Exception e)
+            {
+                printMessage(e.Message);
+                return;
+            }
 
-            //}).Start();
 
             Gpio pin26 = new Gpio(26);
 
@@ -119,10 +152,10 @@ namespace ConsoleApp2
             {
                 pin26.SetState(Gpio.PinStat.Hi);
                 Console.WriteLine("set pin 26 hi");
-                port.WriteLine("set pin 26 hi");
+                interface_port.WriteLine("set pin 26 hi");
                 Thread.Sleep(500);
                 pin26.SetState(Gpio.PinStat.Low);
-                port.WriteLine("set pin 26 low");
+                interface_port.WriteLine("set pin 26 low");
                 Console.WriteLine("set pin 26 low");
                 Thread.Sleep(500);
 
@@ -153,8 +186,11 @@ namespace ConsoleApp2
                 //}
 
             }
+            if (interface_port!= null)
+                interface_port.Close();
+            if (main_port != null)
+                main_port.Close();
 
-            port.Close();
         }
 
         public void printPorts()
@@ -170,13 +206,13 @@ namespace ConsoleApp2
         }
 
 
-        void ReadSerial()
+        void ReadSerial_main()
         {
             string temp = "";
 
-            while (port.IsOpen)
+            while (main_port.IsOpen)
             {
-                receiveBuffer += port.ReadExisting();
+                receiveBuffer += main_port.ReadExisting();
 
                 if (receiveBuffer != "")
                 {
@@ -330,11 +366,40 @@ namespace ConsoleApp2
                         }
 
                     }
-                    else
-                    {
-                        Console.WriteLine("recive:" +receiveBuffer);
-                        port.Write(receiveBuffer);
+                    //else
+                    //{
+                    //    Console.WriteLine("recive:" +receiveBuffer);
+                    //    port.Write(receiveBuffer);
+                    //}
+
+                    receiveBuffer = "";
+
+
+                }
+
+            }
+
+        }
+
+
+        void ReadSerial_interface()
+        {
+            string temp = "";
+
+            while (interface_port.IsOpen)
+            {
+                receiveBuffer_i += interface_port.ReadExisting();
+
+                if (receiveBuffer_i != "")
+                {
+                    receiveBuffer_i = temp + receiveBuffer_i;
+                    temp = "";
+                    if (receiveBuffer_i.Contains(";"))
+                    { 
+
                     }
+                    Console.WriteLine("recive inretface:" + receiveBuffer_i);
+                    interface_port.Write(receiveBuffer);
 
                     receiveBuffer = "";
 
