@@ -8,7 +8,7 @@ using System.IO.Ports;
 
 namespace ConsoleApp2
 {
-    class apppp
+    class main
     {
         List<string> comPortList;
         string receiveBuffer = "";
@@ -65,7 +65,7 @@ namespace ConsoleApp2
 
         }
 
-        public void stam2()
+        public void start()
         {
 
             Console.WriteLine("program start");

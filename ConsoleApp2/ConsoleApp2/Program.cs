@@ -15,14 +15,8 @@ namespace ConsoleApp2
 
         static void Main(string[] args)
         {
-
-
-
-            apppp stam = new apppp();
-            stam.stam2();
-
-            
-
+            main mainProgram = new main();
+            mainProgram.start();
         }
 
         
