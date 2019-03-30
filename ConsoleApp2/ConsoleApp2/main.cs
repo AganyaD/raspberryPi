@@ -106,9 +106,9 @@ namespace ConsoleApp2
             printPorts();
             printMessage("set serial port");
 
-            printMessage("interface port mane /dev/ttyUSB1");
+            printMessage("interface port mane /dev/ttyS0");
             string portName = "";
-            portName = "/dev/ttyUSB1";  
+            portName = "/dev/ttyS0";  
             printMessage("Interface open port in " + portName);
             interface_port = new SerialPort(portName, 115200);
             try
