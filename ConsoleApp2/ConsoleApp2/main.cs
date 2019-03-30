@@ -72,10 +72,16 @@ namespace ConsoleApp2
 
             printPorts();
             Console.WriteLine("set serial port");
-
-            Console.WriteLine("Enter port mane");
+            
+            Console.WriteLine("Enter port mane, press Enter for /dev/ttyUSB1");
             string portName = Console.ReadLine();
 
+            if(portName== "")
+            {
+                portName = "/dev/ttyUSB1";
+                
+            }
+            Console.WriteLine(" open port in " + portName);
             port = new SerialPort(portName, 115200);
             try
             {
@@ -98,7 +104,7 @@ namespace ConsoleApp2
 
             }).Start();
 
-            Gpio pin26 = new Gpio(21);
+            Gpio pin26 = new Gpio(26);
 
             Console.WriteLine("Commands\n"+
                               "setPin26\n"+
