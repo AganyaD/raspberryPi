@@ -114,6 +114,7 @@ namespace ConsoleApp2
             try
             {
                 interface_port.Open();
+                interface_port.Write("port opend");
                 new System.Threading.Thread(() =>
                 {
                     System.Threading.Thread.CurrentThread.IsBackground = true;
