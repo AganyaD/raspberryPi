@@ -207,7 +207,7 @@ namespace ConsoleApp2
                 Thread.Sleep(500);
 
 
-                if (interface_port.IsOpen)
+                if (interface_port.IsOpen && interface_port.BytesToRead>0)
                 {
                     receiveBuffer_i = interface_port.ReadExisting();
                     Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
