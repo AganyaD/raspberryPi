@@ -224,6 +224,34 @@ namespace ConsoleApp2
                             printMessage("Close Can port");
                             main_port.Write("C\r");
                             break;
+
+                        case "0":
+                            breakPress = 5;
+                            break;
+
+                        case "1":
+                            breakPress = 30;
+                            break;
+
+                        case "2":;
+                            breakPress = 60;
+                            break;
+
+                        case "3":
+                            breakPress = 90;
+                            break;
+
+                        case "4":
+                            breakPress = 120;
+                            break;
+
+                        case "5":
+                            breakPress = 145;
+                            break;
+
+                        case "6":
+                            breakPress = 155;
+                            break;
                         default:
                             Console.WriteLine("recive inretface:" + receiveBuffer_i);
                             break;
@@ -245,7 +273,76 @@ namespace ConsoleApp2
         {
             if(breakPress<10)
             {
+                foreach(var led in LedList)
+                {
+                    led.SetState(Gpio.PinStat.Low);
+                }
 
+            }
+            else
+                if (breakPress < 40)
+            {
+                LedList[0].SetState(Gpio.PinStat.Hi);
+                for (int i = 1; i< LedList.Count;i++)
+                {
+                    LedList[i].SetState(Gpio.PinStat.Low);
+                }
+            }
+            else
+                if (breakPress < 70)
+            {
+                LedList[0].SetState(Gpio.PinStat.Hi);
+                LedList[1].SetState(Gpio.PinStat.Hi);
+                for (int i = 2; i < LedList.Count; i++)
+                {
+                    LedList[i].SetState(Gpio.PinStat.Low);
+                }
+            }
+            else
+                if (breakPress < 100)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Hi);
+                    }
+
+                    for (int i = 3; i < LedList.Count; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Low);
+                    }
+                }
+            else
+                if (breakPress < 130)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Hi);
+                    }
+
+                    for (int i = 4; i < LedList.Count; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Low);
+                    }
+                }
+            else
+                if (breakPress < 150)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Hi);
+                    }
+
+                    for (int i = 5; i < LedList.Count; i++)
+                    {
+                        LedList[i].SetState(Gpio.PinStat.Low);
+                    }
+                }
+            else
+            {
+                for (int i = 0; i < LedList.Count; i++)
+                {
+                    LedList[i].SetState(Gpio.PinStat.Hi);
+                }
             }
         }
 
