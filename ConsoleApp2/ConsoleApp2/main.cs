@@ -187,11 +187,15 @@ namespace ConsoleApp2
             //                  "q"
             //    );
 
+            printMessage("Start!!!!!!!!!!!!!!!!");
+
             double tempPress = 0;
             while (true)
             {
                 if (tempPress != breakPress)
                 {
+
+                    printMessage(string.Format("{0} tempPress != breakPress {1}",tempPress,breakPress));
                     tempPress = breakPress;
                     setOutput();
                 }
