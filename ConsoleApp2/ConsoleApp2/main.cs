@@ -373,6 +373,7 @@ namespace ConsoleApp2
             {
                 printMessage("Start read from main port");
                 receiveBuffer += main_port.ReadExisting();
+                printMessage(string.Format("recive : {0}", receiveBuffer));
 
                 if (receiveBuffer != "")
                 {
