@@ -74,7 +74,7 @@ namespace ConsoleApp2
             if (interface_port!= null)
             {
                 if (interface_port.IsOpen)
-                    interface_port.WriteLine(mes+"\r\n");
+                    interface_port.WriteLine(mes+"\r");
             }
             
             
@@ -421,12 +421,13 @@ namespace ConsoleApp2
 
         void ReadSerial_interface()
         {
-            
+            Console.WriteLine("debuggg");
             string temp = "";
 
             while (interface_port.IsOpen)
             {
-                printMessage("Debug - enter while ");
+                Console.WriteLine("debuggg - interface_port.IsOpen");
+                //printMessage("Debug - enter while ");
                 receiveBuffer_i = interface_port.ReadExisting();
 
                 printMessage("Debug - read = {" + receiveBuffer_i+"}");
