@@ -164,11 +164,11 @@ namespace ConsoleApp2
             try
             {
                 main_port.Open();
-                new System.Threading.Thread(() =>
-                {
-                    System.Threading.Thread.CurrentThread.IsBackground = true;
-                    ReadSerial_main();
-                }).Start();
+                //new System.Threading.Thread(() =>
+                //{
+                //    System.Threading.Thread.CurrentThread.IsBackground = true;
+                //    ReadSerial_main();
+                //}).Start();
             }
             catch (Exception e)
             {
@@ -192,6 +192,8 @@ namespace ConsoleApp2
             double tempPress = 0;
             while (true)
             {
+                ReadSerial_main();
+
                 if (tempPress != breakPress)
                 {
 
@@ -367,7 +369,7 @@ namespace ConsoleApp2
         {
             string temp = "";
 
-            while (main_port.IsOpen)
+            if (main_port.IsOpen && main_port.BytesToRead>0)
             {
                 receiveBuffer += main_port.ReadExisting();
 
