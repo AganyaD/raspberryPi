@@ -141,7 +141,7 @@ namespace ConsoleApp2
                 interface_port.Open();
                 interface_port.Write("port opend");
 
-                this.interface_port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.ReadSerial_interface);
+                //this.interface_port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.ReadSerial_interface);
                 //new System.Threading.Thread(() =>
                 //{
                 //    System.Threading.Thread.CurrentThread.IsBackground = true;
@@ -206,31 +206,42 @@ namespace ConsoleApp2
                 Console.WriteLine("set pin 26 low");
                 Thread.Sleep(500);
 
-                //Console.WriteLine("Enter command");
-                //string command = Console.ReadLine();
 
+                if (interface_port.IsOpen)
+                {
+                    receiveBuffer_i = interface_port.ReadExisting();
+                    Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
+                }
+                
+                if (receiveBuffer_i != "")
+                {
 
-                //switch (command)
-                //{
+                    string command = receiveBuffer_i;
 
-                //    case "setPin26":
-                //        pin26.SetPin();
-                //        break;
-                //    case "setPin26-1":
-                //        pin26.SetState(Gpio.PinStat.Hi);
-                //        break;
-                //    case "setPin2-0":
-                //        pin26.SetState(Gpio.PinStat.Low);
-                //        break;
-                //    case "q":
-                //        break;
-                //}
+                    switch (command.ToUpper())
+                    {
+                        case "S":
+                            printMessage("set CAN to 500Kbit");
+                            main_port.Write("S6\r");
+                            break;
 
-                //if (command == "q")
-                //{
-                //    Console.WriteLine("Exit program");
-                //    break;
-                //}
+                        case "O":
+                            printMessage("Open Can port");
+                            main_port.Write("O\r");
+                            break;
+
+                        case "C":
+                            printMessage("Close Can port");
+                            main_port.Write("C\r");
+                            break;
+                        default:
+                            Console.WriteLine("recive inretface:" + receiveBuffer_i);
+                            break;
+
+                    }
+
+                    receiveBuffer = "";
+                }
 
             }
             if (interface_port!= null)
@@ -429,43 +440,43 @@ namespace ConsoleApp2
         }
 
 
-        void ReadSerial_interface(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            printMessage("reciveDate Function");
-            receiveBuffer_i = interface_port.ReadExisting();
-            Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
-            if (receiveBuffer_i != "")
-            {
+        ////void ReadSerial_interface(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        //{
+        //    printMessage("reciveDate Function");
+        //    receiveBuffer_i = interface_port.ReadExisting();
+        //    Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
+        //    //if (receiveBuffer_i != "")
+        //    //{
 
-                string command = receiveBuffer_i;
+        //    //    string command = receiveBuffer_i;
                        
-                    switch(command.ToUpper())
-                    {
-                        case "S":
-                            printMessage("set CAN to 500Kbit");
-                            main_port.Write("S6\r");
-                            break;
+        //    //        switch(command.ToUpper())
+        //    //        {
+        //    //            case "S":
+        //    //                printMessage("set CAN to 500Kbit");
+        //    //                main_port.Write("S6\r");
+        //    //                break;
 
-                        case "O":
-                            printMessage("Open Can port");
-                            main_port.Write("O\r");
-                            break;
+        //    //            case "O":
+        //    //                printMessage("Open Can port");
+        //    //                main_port.Write("O\r");
+        //    //                break;
 
-                        case "C":
-                            printMessage("Close Can port");
-                            main_port.Write("C\r");
-                            break;
-                    default:
-                        Console.WriteLine("recive inretface:" + receiveBuffer_i);
-                        break;
+        //    //            case "C":
+        //    //                printMessage("Close Can port");
+        //    //                main_port.Write("C\r");
+        //    //                break;
+        //    //        default:
+        //    //            Console.WriteLine("recive inretface:" + receiveBuffer_i);
+        //    //            break;
 
-                    }
+        //    //        }
 
-            receiveBuffer = "";
+        //    //receiveBuffer = "";
 
-            }   
+        //    //}   
 
-        }
+        //}
 
 
     }
