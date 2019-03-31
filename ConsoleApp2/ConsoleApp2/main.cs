@@ -431,7 +431,9 @@ namespace ConsoleApp2
 
         void ReadSerial_interface(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
+            printMessage("reciveDate Function");
             receiveBuffer_i = interface_port.ReadExisting();
+            Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
             if (receiveBuffer_i != "")
             {
 
