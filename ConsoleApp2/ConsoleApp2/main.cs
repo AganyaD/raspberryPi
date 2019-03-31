@@ -112,7 +112,7 @@ namespace ConsoleApp2
 
         public void start()
         {
-
+             
             printMessage("program start");
             printMessage("Execute Command");
             ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
