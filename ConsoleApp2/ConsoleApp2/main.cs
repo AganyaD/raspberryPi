@@ -217,7 +217,7 @@ namespace ConsoleApp2
                 {
 
                     string command = receiveBuffer_i;
-
+                    receiveBuffer_i = "";
                     switch (command.ToUpper())
                     {
                         case "S":
@@ -240,7 +240,7 @@ namespace ConsoleApp2
 
                     }
 
-                    receiveBuffer = "";
+                    
                 }
 
             }
