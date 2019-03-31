@@ -74,7 +74,7 @@ namespace ConsoleApp2
             if (interface_port!= null)
             {
                 if (interface_port.IsOpen)
-                    interface_port.WriteLine(mes+"\n");
+                    interface_port.WriteLine(mes+"\r\n");
             }
             
             
@@ -425,25 +425,47 @@ namespace ConsoleApp2
 
             while (interface_port.IsOpen)
             {
-                receiveBuffer_i += interface_port.ReadExisting();
+                receiveBuffer_i = interface_port.ReadExisting();
 
                 if (receiveBuffer_i != "")
                 {
-                    receiveBuffer_i = temp + receiveBuffer_i;
-                    temp = "";
-                    if (receiveBuffer_i.Contains(";"))
-                    { 
+                    //    receiveBuffer_i = temp + receiveBuffer_i;
+                    //    temp = "";
+                    //    if (receiveBuffer_i.Contains(";"))
+                    //    {
+                    string command = receiveBuffer_i;
+                       
+                        switch(command.ToUpper())
+                        {
+                            case "S":
+                                printMessage("set CAN to 500Kbit");
+                                main_port.Write("S6\r");
+                                break;
 
-                    }
-                    Console.WriteLine("recive inretface:" + receiveBuffer_i);
-                    interface_port.Write(receiveBuffer);
+                            case "O":
+                                printMessage("Open Can port");
+                                main_port.Write("O\r");
+                                break;
 
-                    receiveBuffer = "";
+                            case "C":
+                                printMessage("Close Can port");
+                                main_port.Write("C\r");
+                                break;
+                        default:
+                            Console.WriteLine("recive inretface:" + receiveBuffer_i);
+                            break;
 
+                        }
+                    //}
+                    
+                //interface_port.Write(receiveBuffer);
 
-                }
+                //receiveBuffer = "";
+
 
             }
+
+        }
 
         }
 
