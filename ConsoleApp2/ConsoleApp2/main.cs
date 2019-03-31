@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 using System.IO.Ports;
 
@@ -94,11 +95,27 @@ namespace ConsoleApp2
             LedList.Add(new Gpio(21));
         }
 
+        public void ExecuteCommand(string command)
+        {
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "/bin/bash";
+            proc.StartInfo.Arguments = "-c \" " + command + " \"";
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                Console.WriteLine(proc.StandardOutput.ReadLine());
+            }
+        }
+
         public void start()
         {
 
             printMessage("program start");
-
+            printMessage("Execute Command");
+            ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
             printMessage("init GPIOs");
 
             initGpios();
