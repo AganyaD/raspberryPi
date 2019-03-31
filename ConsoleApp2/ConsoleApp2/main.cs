@@ -421,12 +421,15 @@ namespace ConsoleApp2
 
         void ReadSerial_interface()
         {
+            
             string temp = "";
 
             while (interface_port.IsOpen)
             {
+                printMessage("Debug - enter while ");
                 receiveBuffer_i = interface_port.ReadExisting();
 
+                printMessage("Debug - read = {" + receiveBuffer_i+"}");
                 if (receiveBuffer_i != "")
                 {
                     //    receiveBuffer_i = temp + receiveBuffer_i;
