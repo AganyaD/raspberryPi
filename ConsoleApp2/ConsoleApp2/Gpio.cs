@@ -65,7 +65,7 @@ namespace ConsoleApp2
             int st = 0;
             if (stat == PinStat.Hi)
                 st = 1;
-            string tosend = string.Format("...setting output level to {0}", st);
+            string tosend = string.Format("{1}...setting output level to {0}", st, pinNumber);
             Console.WriteLine(tosend);
             tosend = string.Format("/sys/class/gpio/gpio{0}/value", pinNumber);
             File.WriteAllText(tosend, st.ToString());

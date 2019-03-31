@@ -20,6 +20,7 @@ namespace ConsoleApp2
         double lastSpeed = 0;
         double lastSpeedTime = 0;
         double acc = 0.0;
+        double breakPress = 0.0;
         List<string> inFramList = new List<string>();
 
 
@@ -84,15 +85,15 @@ namespace ConsoleApp2
         void initGpios()
         {
 
-            LedList.Add(new Gpio(26));
-            LedList.Add(new Gpio(19));
-            LedList.Add(new Gpio(13));
-            LedList.Add(new Gpio(6));
-            LedList.Add(new Gpio(5));
-            LedList.Add(new Gpio(12));
-            LedList.Add(new Gpio(16));
-            LedList.Add(new Gpio(20));
-            LedList.Add(new Gpio(21));
+            LedList.Add(new Gpio(26));  //0
+            LedList.Add(new Gpio(19));  //1
+            LedList.Add(new Gpio(13));  //2
+            LedList.Add(new Gpio(6));   //3
+            LedList.Add(new Gpio(5));   //4
+            LedList.Add(new Gpio(12));  //5
+            //LedList.Add(new Gpio(16));
+            //LedList.Add(new Gpio(20));
+            //LedList.Add(new Gpio(21));
         }
 
         public void ExecuteCommand(string command)
@@ -176,7 +177,7 @@ namespace ConsoleApp2
             }
 
 
-           
+
             //pin26.SetPin();
 
             //Console.WriteLine("Commands\n"+
@@ -186,25 +187,14 @@ namespace ConsoleApp2
             //                  "q"
             //    );
 
-
+            double tempPress = 0;
             while (true)
             {
-                for (int i=0;i<LedList.Count;i++)
+                if (tempPress != breakPress)
                 {
-                    LedList[i].SetState(Gpio.PinStat.Hi);
+                    tempPress = breakPress;
+                    setOutput();
                 }
-                
-                Console.WriteLine("set pin 26 hi");
-                interface_port.WriteLine("set pin 26 hi");
-                Thread.Sleep(500);
-                for (int i = 0; i < LedList.Count; i++)
-                {
-                    LedList[i].SetState(Gpio.PinStat.Low);
-                }
-                
-                interface_port.WriteLine("set pin 26 low");
-                Console.WriteLine("set pin 26 low");
-                Thread.Sleep(500);
 
 
                 if (interface_port.IsOpen && interface_port.BytesToRead>0)
@@ -249,6 +239,14 @@ namespace ConsoleApp2
             if (main_port != null)
                 main_port.Close();
 
+        }
+
+        void setOutput()
+        {
+            if(breakPress<10)
+            {
+
+            }
         }
 
         public void printPorts()
@@ -369,21 +367,8 @@ namespace ConsoleApp2
                                         temp_speedDataTitmeS += 60;
                                     }
 
-                                    acc = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
+                                    breakPress = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
                                     //acc = (double)acc;
-
-                                    new System.Threading.Thread(() =>
-                                    {
-                                        System.Threading.Thread.CurrentThread.IsBackground = true;
-
-                                        //label3.Invoke(new Action(() => label3.Text = toText));
-
-                                        //label4.Invoke(new Action(() => label4.Text = acc.ToString("F3")));
-
-                                        //this.Invoke(new EventHandler(DisplayPics));
-
-                                    }).Start();
-
 
                                     lastSpeedTime = pressDataTitmeS;
                                     //lastSpeed = speedDataKmPerH;
