@@ -493,7 +493,7 @@ namespace ConsoleApp2
                                 string t;
 
                                 {
-                                    string data = mess.Substring(t_loc + 5, 2);
+                                    string data = mess.Substring(t_loc + 7, 2);
                                     double press = Convert.ToInt16(data, 16);
                                     //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
                                     //t = mess.Substring(mess.Length - 4, 4);
