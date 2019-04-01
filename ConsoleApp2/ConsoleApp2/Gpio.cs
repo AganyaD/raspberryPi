@@ -9,6 +9,7 @@ namespace ConsoleApp2
 {
     class Gpio
     {
+        public bool debug = false;
         public enum GpioPin
         {
             GPIO17 = 17,
@@ -49,7 +50,10 @@ namespace ConsoleApp2
             if (!Directory.Exists(dirName))
             {
                 Console.WriteLine("...about to open pin " + pinNumber);
-                File.WriteAllText("/sys/class/gpio/export", pinNumber.ToString());
+                if (!debug)
+                    File.WriteAllText("/sys/class/gpio/export", pinNumber.ToString());
+                else
+                    Console.WriteLine("debug");
             }
             else
             {
@@ -58,7 +62,10 @@ namespace ConsoleApp2
             }
 
             Console.WriteLine("...specifying direction of Pin " + pinNumber + " as OUT");
-            File.WriteAllText("/sys/class/gpio/gpio26/direction", "out");
+            if (!debug)
+                File.WriteAllText("/sys/class/gpio/gpio26/direction", "out");
+            else
+                Console.WriteLine("debug");
         }
         public void SetState(PinStat stat)
         {
@@ -68,7 +75,10 @@ namespace ConsoleApp2
             string tosend = string.Format("{1}...setting output level to {0}", st, pinNumber);
             Console.WriteLine(tosend);
             tosend = string.Format("/sys/class/gpio/gpio{0}/value", pinNumber);
-            File.WriteAllText(tosend, st.ToString());
+            if (!debug)
+                File.WriteAllText(tosend, st.ToString());
+            else
+                Console.WriteLine("debug");
         }
     }
 }

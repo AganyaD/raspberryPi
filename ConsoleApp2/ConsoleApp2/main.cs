@@ -12,6 +12,8 @@ namespace ConsoleApp2
 {
     class main
     {
+        bool debug = false;
+
         List<string> comPortList;
         string receiveBuffer = "";
         string receiveBuffer_i = "";
@@ -94,6 +96,14 @@ namespace ConsoleApp2
             //LedList.Add(new Gpio(16));
             //LedList.Add(new Gpio(20));
             //LedList.Add(new Gpio(21));
+
+            if (debug)
+            {
+                foreach (var y in LedList)
+                {
+                    y.debug = true;
+                }
+            }
         }
 
         public void ExecuteCommand(string command)
@@ -113,10 +123,16 @@ namespace ConsoleApp2
 
         public void start()
         {
+            
              
-            printMessage("program start");
+            if (debug)
+                printMessage("program start - debug Mode");
+            else
+                printMessage("program start");
+
             printMessage("Execute Command");
-            ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
+            if(!debug)
+                ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
             printMessage("init GPIOs");
 
             initGpios();
@@ -134,7 +150,11 @@ namespace ConsoleApp2
                 printMessage("interface port mane /dev/ttyUSB1");
                 portName = "/dev/ttyUSB1";
             }
-            
+
+            if (debug)
+                portName = "COM27";
+
+
             printMessage("Interface open port in " + portName);
             interface_port = new SerialPort(portName, 115200);
             try
@@ -159,16 +179,19 @@ namespace ConsoleApp2
             printMessage("Main port mane /dev/ttyUSB0");
             portName = "/dev/ttyUSB0";
 
+            if (debug)
+                portName = "COM26";
+
             printMessage("open port in " + portName);
             main_port = new SerialPort(portName, 115200);
             try
             {
                 main_port.Open();
-                new System.Threading.Thread(() =>
-                {
-                    System.Threading.Thread.CurrentThread.IsBackground = true;
-                    ReadSerial_main();
-                }).Start();
+                //new System.Threading.Thread(() =>
+                //{
+                //    System.Threading.Thread.CurrentThread.IsBackground = true;
+                //    ReadSerial_main();
+                //}).Start();
             }
             catch (Exception e)
             {
@@ -188,6 +211,17 @@ namespace ConsoleApp2
             //    );
 
             printMessage("Start!!!!!!!!!!!!!!!!");
+
+
+            Thread.Sleep(500);
+            main_port.Write("C\r");
+            Thread.Sleep(500);
+            main_port.Write("C\r");
+            Thread.Sleep(500);
+            main_port.Write("S6\r");
+            Thread.Sleep(500);
+            main_port.Write("O\r");
+
 
             double tempPress = 0;
             while (true)
@@ -363,11 +397,11 @@ namespace ConsoleApp2
                 Console.WriteLine(portName);
             }
         }
-
+        string temp = "";
 
         void ReadSerial_main()
         {
-            string temp = "";
+            
 
             if (main_port.IsOpen && main_port.BytesToRead>0)
             {
@@ -379,7 +413,7 @@ namespace ConsoleApp2
 
                     mesage = receiveBuffer;
                     temp = "";
-                    if (receiveBuffer.Contains("\r") && false)
+                    if (receiveBuffer.Contains("\r"))
                     {
                         string[] split = receiveBuffer.Split('\r');
                         char[] chararry = receiveBuffer.ToArray();
@@ -450,6 +484,8 @@ namespace ConsoleApp2
 
                             if (mess.Contains("t0F1") && true)
                             {
+                                int t_loc = mess.IndexOf('t'); ;
+                                
                                 //01234 56 78 9  11 13 15 17 19 
                                 //t3E98 00 00 00 13 00 00 00 13
 
@@ -457,23 +493,24 @@ namespace ConsoleApp2
                                 string t;
 
                                 {
-                                    double press = Convert.ToInt16(mess.Substring(7, 2), 16);
+                                    string data = mess.Substring(t_loc + 5, 2);
+                                    double press = Convert.ToInt16(data, 16);
                                     //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
                                     t = mess.Substring(mess.Length - 4, 4);
                                     double pressDataTitmeS = Convert.ToUInt16(t, 16);
                                     string toText = press.ToString();
 
-                                    double temp_speedDataTitmeS = pressDataTitmeS;
+                                    //double temp_speedDataTitmeS = pressDataTitmeS;
 
-                                    if (pressDataTitmeS < lastSpeedTime)
-                                    {
-                                        temp_speedDataTitmeS += 60;
-                                    }
+                                    //if (pressDataTitmeS < lastSpeedTime)
+                                    //{
+                                    //    temp_speedDataTitmeS += 60;
+                                    //}
 
                                     breakPress = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
                                     //acc = (double)acc;
 
-                                    lastSpeedTime = pressDataTitmeS;
+                                    //lastSpeedTime = pressDataTitmeS;
                                     //lastSpeed = speedDataKmPerH;
                                 }
 
@@ -483,40 +520,39 @@ namespace ConsoleApp2
 
                             // t 7E8 8 03 41 0D 00 55 55 55 55
                             //"t19D8C0003FFD000BD9FFCBA3"
-                            if (mess.Contains("t") && false)
-                            {
-                                try
-                                {
-                                    int mesid = Convert.ToInt16(mess.Substring(1, 3), 16);
+                            //if (mess.Contains("t") && false)
+                            //{
+                            //    try
+                            //    {
+                            //        int mesid = Convert.ToInt16(mess.Substring(1, 3), 16);
 
-                                    int lng = Convert.ToInt16(mess.Substring(4, 1), 16);
+                            //        int lng = Convert.ToInt16(mess.Substring(4, 1), 16);
 
-                                    byte[] data = new byte[lng];
+                            //        byte[] data = new byte[lng];
 
-                                    for (int indx = 0; indx < lng; indx++)
-                                    {
-                                        data[indx] = Convert.ToByte(mess.Substring(5 + indx + (indx * 2), 2), 16);
-                                    }
+                            //        for (int indx = 0; indx < lng; indx++)
+                            //        {
+                            //            data[indx] = Convert.ToByte(mess.Substring(5 + indx + (indx * 2), 2), 16);
+                            //        }
 
-                                    CanMessageData candata;
-                                    candata = new CanMessageData(data);
-                                    CanMessage message = new CanMessage(mesid, candata);
+                            //        CanMessageData candata;
+                            //        candata = new CanMessageData(data);
+                            //        CanMessage message = new CanMessage(mesid, candata);
 
-                                    //datagridUpdataInfo(message);
-                                }
-                                catch
-                                {
+                            //        //datagridUpdataInfo(message);
+                            //    }
+                            //    catch
+                            //    {
 
-                                }
-                            }
+                            //    }
+                            //}
                         }
 
                     }
-                    //else
-                    //{
-                    //    Console.WriteLine("recive:" +receiveBuffer);
-                    //    port.Write(receiveBuffer);
-                    //}
+                    else
+                    {
+                        temp = receiveBuffer;
+                    }
 
                     receiveBuffer = "";
 
