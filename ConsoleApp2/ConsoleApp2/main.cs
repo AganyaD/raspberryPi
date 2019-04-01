@@ -164,11 +164,11 @@ namespace ConsoleApp2
             try
             {
                 main_port.Open();
-                //new System.Threading.Thread(() =>
-                //{
-                //    System.Threading.Thread.CurrentThread.IsBackground = true;
-                //    ReadSerial_main();
-                //}).Start();
+                new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.CurrentThread.IsBackground = true;
+                    ReadSerial_main();
+                }).Start();
             }
             catch (Exception e)
             {
@@ -371,9 +371,7 @@ namespace ConsoleApp2
 
             if (main_port.IsOpen && main_port.BytesToRead>0)
             {
-                printMessage("Start read from main port");
                 receiveBuffer += main_port.ReadExisting();
-                printMessage(string.Format("recive : {0}", receiveBuffer));
 
                 if (receiveBuffer != "")
                 {
@@ -399,7 +397,7 @@ namespace ConsoleApp2
                             receiveBuffer = receiveBuffer.Substring(0, receiveBuffer.Length - temp.Length);
                         }
 
-                        printMessage(string.Format("recive data {0}", receiveBuffer));
+
                         for (int i = 0; i < limit; i++)
                         {
                             string mess = split[i];
