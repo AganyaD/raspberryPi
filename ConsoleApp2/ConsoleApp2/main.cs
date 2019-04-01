@@ -496,8 +496,8 @@ namespace ConsoleApp2
                                     string data = mess.Substring(t_loc + 5, 2);
                                     double press = Convert.ToInt16(data, 16);
                                     //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
-                                    t = mess.Substring(mess.Length - 4, 4);
-                                    double pressDataTitmeS = Convert.ToUInt16(t, 16);
+                                    //t = mess.Substring(mess.Length - 4, 4);
+                                    //double pressDataTitmeS = Convert.ToUInt16(t, 16);
                                     string toText = press.ToString();
 
                                     //double temp_speedDataTitmeS = pressDataTitmeS;
@@ -512,6 +512,10 @@ namespace ConsoleApp2
 
                                     //lastSpeedTime = pressDataTitmeS;
                                     //lastSpeed = speedDataKmPerH;
+
+                                    printMessage(string.Format("message : {0} ",mess));
+                                    printMessage(string.Format("value hex : {0} ",data));
+                                    printMessage(string.Format("value dec : {0} ", press));
                                 }
 
                                 //this.Invoke(new EventHandler(DisplayText));
