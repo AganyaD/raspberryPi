@@ -92,10 +92,10 @@ namespace ConsoleApp2
             LedList.Add(new Gpio(13));  //2
             LedList.Add(new Gpio(6));   //3
             LedList.Add(new Gpio(5));   //4
-            LedList.Add(new Gpio(12));  //5
+            //LedList.Add(new Gpio(12));  //5
             //LedList.Add(new Gpio(16));
             //LedList.Add(new Gpio(20));
-            //LedList.Add(new Gpio(21));
+            LedList.Add(new Gpio(21));
 
             if (debug)
             {
