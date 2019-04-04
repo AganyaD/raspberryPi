@@ -170,7 +170,7 @@ namespace ConsoleApp2
                         }
                         break;
                     }
-                    Console.WriteLine(split1[i]);
+                    //.WriteLine(split1[i]);
                 }
 
                 if (Zero_Flg)
