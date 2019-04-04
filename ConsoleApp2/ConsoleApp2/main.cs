@@ -156,7 +156,7 @@ namespace ConsoleApp2
             {
                 //check HW revision
                 //cat / etc / debian_version
-                string o = ExecuteCommand_stringOutpot("sudo chmod -R 666 /dev/ttyS0");
+                string o = ExecuteCommand_stringOutpot("cat /proc/cpuinfo");
                 string[] split1 = o.Split('\r');
                 string l = string.Empty;
                 foreach (string line in split1)
@@ -168,7 +168,7 @@ namespace ConsoleApp2
                     }
                 }
                 string[] split2 = l.Split(':');
-                if (!split2.Contains("900093")) 
+                if (!split2[1].Contains("900093")) 
                 {
                     Zero_Flg = false;
                 }
