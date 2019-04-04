@@ -14,6 +14,8 @@ namespace ConsoleApp2
     {
         bool debug = false;
 
+        bool Zero_Flg = true;
+
         List<string> comPortList;
         string receiveBuffer = "";
         string receiveBuffer_i = "";
@@ -121,6 +123,25 @@ namespace ConsoleApp2
             }
         }
 
+        public string ExecuteCommand_stringOutpot(string command)
+        {
+            string outpot = string.Empty;
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "/bin/bash";
+            proc.StartInfo.Arguments = "-c \" " + command + " \"";
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                //Console.WriteLine(proc.StandardOutput.ReadLine());
+                outpot += proc.StandardOutput.ReadLine();
+            }
+
+            return outpot;
+        }
+
         public void start()
         {
             
@@ -132,7 +153,33 @@ namespace ConsoleApp2
 
             printMessage("Execute Command");
             if(!debug)
-                ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
+            {
+                //check HW revision
+                //cat / etc / debian_version
+                string o = ExecuteCommand_stringOutpot("sudo chmod -R 666 /dev/ttyS0");
+                string[] split1 = o.Split('\r');
+                string l = string.Empty;
+                foreach (string line in split1)
+                {
+                   if (line.Contains("Revision"))
+                    {
+                        l = line;
+                        Console.WriteLine(l);
+                    }
+                }
+                string[] split2 = l.Split(':');
+                if (!split2.Contains("900093")) 
+                {
+                    Zero_Flg = false;
+                }
+                if (Zero_Flg)
+                    ExecuteCommand("sudo chmod -R 666 /dev/ttyAMA0");
+                else
+                    ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
+            }
+            
+
+
             printMessage("init GPIOs");
 
             initGpios();
@@ -142,8 +189,16 @@ namespace ConsoleApp2
             string portName = "";
             if (comPortList.IndexOf("/dev/ttyUSB1")<0)
             {
-                printMessage("interface port mane /dev/ttyS0");
-                portName = "/dev/ttyS0";
+                if (Zero_Flg)
+                {
+                    printMessage("interface port mane /dev/ttyAMA0");
+                    portName = "/dev/ttyAMA0";
+                }
+                else
+                {
+                    printMessage("interface port mane /dev/ttyS0");
+                    portName = "/dev/ttyS0";
+                }
             }
             else
             {
