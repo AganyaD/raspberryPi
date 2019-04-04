@@ -166,7 +166,7 @@ namespace ConsoleApp2
                         if (!split1[i+1].Contains("900093"))
                         {
                             Zero_Flg = false;
-                            Console.WriteLine("Rpi 3");
+                            Console.WriteLine("Rpi 3 ------------------------");
                         }
                         break;
                     }
@@ -178,14 +178,15 @@ namespace ConsoleApp2
                 else
                     ExecuteCommand("sudo chmod -R 666 /dev/ttyS0");
             }
-            
 
 
+            Console.WriteLine("---------------------------------");
             printMessage("init GPIOs");
-
+            Console.WriteLine("---------------------------------");
             initGpios();
-
+            Console.WriteLine("---------------------------------");
             printPorts();
+            Console.WriteLine("---------------------------------");
             printMessage("set serial port");
             string portName = "";
             if (comPortList.IndexOf("/dev/ttyUSB1")<0)
