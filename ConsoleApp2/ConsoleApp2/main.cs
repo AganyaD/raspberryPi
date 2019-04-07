@@ -281,6 +281,41 @@ namespace ConsoleApp2
 
 
             double tempPress = 0;
+            bool pwm = false;
+            int ontime = 0;
+            Thread pwm_task = new Thread(() => {
+
+                while(true)
+                {
+                    if(ontime>0)
+                    {
+                        foreach (var led in LedList)
+                        {
+                            led.SetState(Gpio.PinStat.Hi);
+                        }
+
+                        Thread.Sleep(ontime);
+
+                        foreach (var led in LedList)
+                        {
+                            led.SetState(Gpio.PinStat.Low);
+                        }
+
+                        Thread.Sleep(10 - ontime);
+
+
+                    }
+                    else
+                    {
+                        foreach (var led in LedList)
+                        {
+                            led.SetState(Gpio.PinStat.Low);
+                        }
+                    }
+                   
+
+                }
+            });
             while (true)
             {
                 ReadSerial_main();
@@ -292,6 +327,8 @@ namespace ConsoleApp2
                     tempPress = breakPress;
                     setOutput();
                 }
+
+               
 
 
                 if (interface_port.IsOpen && interface_port.BytesToRead>0)
@@ -349,6 +386,16 @@ namespace ConsoleApp2
                         case "6":
                             breakPress = 155;
                             break;
+
+                        case "7":
+                            if (ontime < 9)
+                                ontime++;
+                            else
+                                ontime = 0;
+                            Console.WriteLine("onTime = " + ontime);
+                            break;
+
+
                         default:
                             Console.WriteLine("recive inretface:" + receiveBuffer_i);
                             break;
