@@ -333,6 +333,7 @@ namespace ConsoleApp2
 
                 if (interface_port.IsOpen && interface_port.BytesToRead>0)
                 {
+                    Console.WriteLine("rrrrrrrrrrrrrrrrrrrrr");
                     receiveBuffer_i = interface_port.ReadExisting();
                     Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
                 }
