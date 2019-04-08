@@ -311,6 +311,7 @@ namespace ConsoleApp2
                    
 
                 }
+                Thread.CurrentThread.Abort();
             });
 
 
