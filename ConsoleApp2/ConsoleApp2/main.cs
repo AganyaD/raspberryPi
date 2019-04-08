@@ -311,11 +311,15 @@ namespace ConsoleApp2
                         {
                             led.SetState(Gpio.PinStat.Low);
                         }
+
+                        break;
                     }
                    
 
                 }
             });
+
+
             while (true)
             {
                 ReadSerial_main();
@@ -393,7 +397,13 @@ namespace ConsoleApp2
                                 ontime++;
                             else
                                 ontime = 0;
+
                             Console.WriteLine("onTime = " + ontime);
+                            if (ontime > 0 && !pwm_task.IsAlive)
+                            {
+                                Console.WriteLine("start PWM task");
+                                pwm_task.Start();
+                            }
                             break;
 
 
