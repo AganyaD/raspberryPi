@@ -289,29 +289,23 @@ namespace ConsoleApp2
                 {
                     if(ontime>0)
                     {
-                        foreach (var led in LedList)
-                        {
-                            led.SetState(Gpio.PinStat.Hi);
-                        }
 
-                        Thread.Sleep(ontime);
+                        LedList[0].SetState(Gpio.PinStat.Hi);
+                        
 
-                        foreach (var led in LedList)
-                        {
-                            led.SetState(Gpio.PinStat.Low);
-                        }
+                        Thread.Sleep(1);
 
-                        Thread.Sleep(10 - ontime);
+
+                        LedList[0].SetState(Gpio.PinStat.Low);
+                        
+
+                        Thread.Sleep(1);
 
 
                     }
                     else
                     {
-                        foreach (var led in LedList)
-                        {
-                            led.SetState(Gpio.PinStat.Low);
-                        }
-
+                        LedList[0].SetState(Gpio.PinStat.Low);
                         break;
                     }
                    
