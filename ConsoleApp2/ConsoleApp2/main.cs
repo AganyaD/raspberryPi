@@ -86,6 +86,8 @@ namespace ConsoleApp2
         }
 
         List<Gpio> LedList = new List<Gpio>();
+        Gpio s0;
+        Gpio s1;
         void initGpios()
         {
 
@@ -98,7 +100,8 @@ namespace ConsoleApp2
             //LedList.Add(new Gpio(16));
             //LedList.Add(new Gpio(20));
             LedList.Add(new Gpio(21));
-
+            s0 = new Gpio(23);
+            s1 = new Gpio(24);
             if (debug)
             {
                 foreach (var y in LedList)
@@ -314,6 +317,7 @@ namespace ConsoleApp2
                 Thread.CurrentThread.Abort();
             });
 
+            int mode = 1;
 
             while (true)
             {
@@ -400,6 +404,35 @@ namespace ConsoleApp2
                                 pwm_task.Start();
                             }
                             break;
+
+                        case "s":
+                            mode++;
+                            if (mode >2)
+                            {
+                                mode = 0;
+                            }
+
+                            if (mode == 0)
+                            {
+
+                                s1.SetState(Gpio.PinStat.Low);
+                                s0.SetState(Gpio.PinStat.Low);
+                            }
+                            else if (mode == 1)
+                            {
+
+                                s1.SetState(Gpio.PinStat.Low);
+                                s0.SetState(Gpio.PinStat.Hi);
+                            }
+                            else if (mode == 2)
+                            {
+
+                                s1.SetState(Gpio.PinStat.Hi);
+                                s0.SetState(Gpio.PinStat.Low);
+                            }
+                            
+
+                                break;
 
 
                         default:
