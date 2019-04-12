@@ -288,7 +288,7 @@ namespace ConsoleApp2
             int ontime = 0;
             
 
-            int mode = 1;
+            int mode = 0;
 
             while (true)
             {
@@ -367,7 +367,7 @@ namespace ConsoleApp2
                         case "M":
                             mode++;
                             Console.WriteLine("mode change - {0}", mode);
-                            if (mode >2)
+                            if (mode >3)
                             {
                                 mode = 0;
                             }
@@ -390,9 +390,15 @@ namespace ConsoleApp2
                                 s1.SetState(Gpio.PinStat.Hi);
                                 s0.SetState(Gpio.PinStat.Low);
                             }
-                            
+                            else if (mode == 3)
+                            {
 
-                                break;
+                                s1.SetState(Gpio.PinStat.Hi);
+                                s0.SetState(Gpio.PinStat.Hi);
+                            }
+
+
+                            break;
 
 
                         default:
