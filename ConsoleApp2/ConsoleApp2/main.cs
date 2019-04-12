@@ -405,7 +405,7 @@ namespace ConsoleApp2
                             }
                             break;
 
-                        case "s":
+                        case "m":
                             mode++;
                             if (mode >2)
                             {
