@@ -364,7 +364,7 @@ namespace ConsoleApp2
 
                        
 
-                        case "m":
+                        case "M":
                             mode++;
                             Console.WriteLine("mode change - {0}", mode);
                             if (mode >2)
