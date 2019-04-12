@@ -286,36 +286,7 @@ namespace ConsoleApp2
             double tempPress = 0;
             bool pwm = false;
             int ontime = 0;
-            Thread pwm_task = new Thread(() => {
-
-                while(true)
-                {
-                    if(ontime>0)
-                    {
-
-                        LedList[0].SetState(Gpio.PinStat.Hi);
-                        
-
-                        Thread.Sleep(1);
-
-
-                        LedList[0].SetState(Gpio.PinStat.Low);
-                        
-
-                        Thread.Sleep(1);
-
-
-                    }
-                    else
-                    {
-                        LedList[0].SetState(Gpio.PinStat.Low);
-                        break;
-                    }
-                   
-
-                }
-                Thread.CurrentThread.Abort();
-            });
+            
 
             int mode = 1;
 
@@ -391,22 +362,11 @@ namespace ConsoleApp2
                             breakPress = 155;
                             break;
 
-                        case "7":
-                            if (ontime < 9)
-                                ontime++;
-                            else
-                                ontime = 0;
-
-                            Console.WriteLine("onTime = " + ontime);
-                            if (ontime > 0 && !pwm_task.IsAlive)
-                            {
-                                Console.WriteLine("start PWM task");
-                                pwm_task.Start();
-                            }
-                            break;
+                       
 
                         case "m":
                             mode++;
+                            Console.WriteLine("mode change - {0}", mode);
                             if (mode >2)
                             {
                                 mode = 0;
@@ -414,7 +374,7 @@ namespace ConsoleApp2
 
                             if (mode == 0)
                             {
-
+                                
                                 s1.SetState(Gpio.PinStat.Low);
                                 s0.SetState(Gpio.PinStat.Low);
                             }
