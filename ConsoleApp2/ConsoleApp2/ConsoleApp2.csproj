@@ -79,6 +79,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ConsoleApp2_TemporaryKey.pfx" />
+    <None Include="pwm.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

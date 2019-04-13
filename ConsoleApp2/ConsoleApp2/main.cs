@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
-
 using System.IO.Ports;
 
 namespace ConsoleApp2
@@ -126,6 +125,24 @@ namespace ConsoleApp2
             }
         }
 
+        Process python;
+
+        public void pythonProsses(string command)
+        {
+            Process python = new System.Diagnostics.Process();
+            python.StartInfo.FileName = "/bin/bash";
+            python.StartInfo.Arguments = "-c \" " + command + " \"";
+            python.StartInfo.UseShellExecute = false;
+            python.StartInfo.RedirectStandardOutput = true;
+            python.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
+            python.Start();
+        }
+
+        void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            printMessage(e.Data);
+        }
+
         public string ExecuteCommand_stringOutpot(string command)
         {
             string outpot = string.Empty;
@@ -184,9 +201,11 @@ namespace ConsoleApp2
 
 
             Console.WriteLine("---------------------------------");
-            printMessage("init GPIOs");
-            Console.WriteLine("---------------------------------");
-            initGpios();
+            //printMessage("init GPIOs");
+            //Console.WriteLine("---------------------------------");
+            //initGpios();
+            printMessage("start python prosses");
+
             Console.WriteLine("---------------------------------");
             printPorts();
             Console.WriteLine("---------------------------------");
@@ -289,7 +308,7 @@ namespace ConsoleApp2
             
 
             int mode = 0;
-
+            int duty = 10;
             while (true)
             {
                 ReadSerial_main();
@@ -366,7 +385,8 @@ namespace ConsoleApp2
 
                         case "M":
                             mode++;
-                            Console.WriteLine("mode change - {0}", mode);
+                            printMessage(string.Format("mode change - {0}", mode));
+                            
                             if (mode >3)
                             {
                                 mode = 0;
@@ -374,30 +394,66 @@ namespace ConsoleApp2
 
                             if (mode == 0)
                             {
-                                
+                                //off
                                 s1.SetState(Gpio.PinStat.Low);
                                 s0.SetState(Gpio.PinStat.Low);
                             }
                             else if (mode == 1)
                             {
-
+                                //green
                                 s1.SetState(Gpio.PinStat.Low);
                                 s0.SetState(Gpio.PinStat.Hi);
                             }
                             else if (mode == 2)
                             {
-
+                                //red
                                 s1.SetState(Gpio.PinStat.Hi);
                                 s0.SetState(Gpio.PinStat.Low);
                             }
                             else if (mode == 3)
                             {
-
+                                //blue
                                 s1.SetState(Gpio.PinStat.Hi);
                                 s0.SetState(Gpio.PinStat.Hi);
                             }
 
 
+                            break;
+
+                        case "PWM":
+                            if(python == null)
+                            {
+                                printMessage("start pwm process -------------");
+                                pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
+                            }
+                            else
+                            {
+                                printMessage("close pwm process >>>>>>>>>>>>>");
+                                python.Kill();
+                            }
+                            break;
+
+                        case "D":
+                            if (python == null)
+                            {
+
+                                if(duty != 10)
+                                {
+                                    duty = 100;
+                                }
+                                else
+                                {
+                                    duty = 10;
+                                }
+                                
+                                printMessage(string.Format("duty = {0}", duty));
+                                python.StandardInput();// duty.ToString());
+
+                            }
+                            else
+                            {
+                                printMessage("process is close");                                
+                            }
                             break;
 
 

@@ -20,3 +20,4 @@ C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleA
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.application
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.exe
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\pwm.py
