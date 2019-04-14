@@ -90,14 +90,14 @@ namespace ConsoleApp2
         void initGpios()
         {
 
-            LedList.Add(new Gpio(26));  //0
-            LedList.Add(new Gpio(19));  //1
-            LedList.Add(new Gpio(13));  //2
-            LedList.Add(new Gpio(6));   //3
-            LedList.Add(new Gpio(5));   //4
-            //LedList.Add(new Gpio(12));  //5
-            //LedList.Add(new Gpio(16));
-            //LedList.Add(new Gpio(20));
+            ////////LedList.Add(new Gpio(26));  //0
+            ////////LedList.Add(new Gpio(19));  //1
+            ////////LedList.Add(new Gpio(13));  //2
+            ////////LedList.Add(new Gpio(6));   //3
+            ////////LedList.Add(new Gpio(5));   //4
+            //////////LedList.Add(new Gpio(12));  //5
+            //////////LedList.Add(new Gpio(16));
+            //////////LedList.Add(new Gpio(20));
             LedList.Add(new Gpio(21));
             s0 = new Gpio(23);
             s1 = new Gpio(24);
@@ -201,9 +201,9 @@ namespace ConsoleApp2
 
 
             Console.WriteLine("---------------------------------");
-            //printMessage("init GPIOs");
-            //Console.WriteLine("---------------------------------");
-            //initGpios();
+            printMessage("init GPIOs");
+            Console.WriteLine("---------------------------------");
+            initGpios();
             printMessage("start python prosses");
 
             Console.WriteLine("---------------------------------");
