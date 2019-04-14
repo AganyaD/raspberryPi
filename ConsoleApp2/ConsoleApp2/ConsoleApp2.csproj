@@ -79,6 +79,24 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ConsoleApp2_TemporaryKey.pfx" />
+    <None Include="gpio\13">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="gpio\19">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="gpio\21">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="gpio\26">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="gpio\5">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="gpio\6">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="pwm.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

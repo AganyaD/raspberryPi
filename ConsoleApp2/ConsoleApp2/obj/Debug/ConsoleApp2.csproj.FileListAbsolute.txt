@@ -21,3 +21,9 @@ C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleA
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.exe
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\pwm.py
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\13
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\19
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\21
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\26
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\5
+C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\gpio\6
