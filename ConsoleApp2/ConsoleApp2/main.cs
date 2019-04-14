@@ -341,6 +341,11 @@ namespace ConsoleApp2
             int mode = 0;
             int duty = 10;
             bool demo = false;
+
+
+            pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
+
+
             while (true)
             {
                 ReadSerial_main();
@@ -450,19 +455,6 @@ namespace ConsoleApp2
                             }
 
 
-                            break;
-
-                        case "PWM":
-                            if(python == null)
-                            {
-                                printMessage("start pwm process -------------");
-                                pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
-                            }
-                            else
-                            {
-                                printMessage("close pwm process >>>>>>>>>>>>>");
-                                python.Kill();
-                            }
                             break;
 
                         case "D":
