@@ -340,6 +340,7 @@ namespace ConsoleApp2
 
             int mode = 0;
             int duty = 10;
+            bool demo = false;
             while (true)
             {
                 ReadSerial_main();
@@ -484,12 +485,26 @@ namespace ConsoleApp2
                             File.WriteAllText("6", duty.ToString());
                             
                             break;
-
+                        case "DEMO":
+                            printMessage("Start demo");
+                            demo = true;
+                            break;
 
                         default:
                             Console.WriteLine("recive inretface:" + receiveBuffer_i);
                             break;
 
+                    }
+
+                    if (demo)
+                    {
+                        breakPress++;
+                        Thread.Sleep(100);
+
+                    }
+                    if(breakPress == 200)
+                    {
+                        printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
                     }
 
                     
@@ -505,79 +520,27 @@ namespace ConsoleApp2
 
         void setOutput()
         {
-            if(breakPress<10)
-            {
-                foreach(var led in LedList)
-                {
-                    led.SetState(Gpio.PinStat.Low);
-                }
+            int value = Convert.ToInt32(breakPress * 3.5);
+            string[] levels = { "26", "19", "13", "6", "5", "21" };
 
-            }
-            else
-                if (breakPress < 40)
+            foreach (string lev in levels)
             {
-                LedList[0].SetState(Gpio.PinStat.Hi);
-                for (int i = 1; i< LedList.Count;i++)
+                if (value >= 0 && value <= 100)
                 {
-                    LedList[i].SetState(Gpio.PinStat.Low);
+                    //level1
+                    File.WriteAllText(lev, value.ToString());
                 }
+                else if (value >= 100)
+                {
+                    File.WriteAllText(lev, "100");
+                }
+                else if (value <= 0)
+                {
+                    File.WriteAllText(lev, "0");
+                }
+                value -= 100;
             }
-            else
-                if (breakPress < 70)
-            {
-                LedList[0].SetState(Gpio.PinStat.Hi);
-                LedList[1].SetState(Gpio.PinStat.Hi);
-                for (int i = 2; i < LedList.Count; i++)
-                {
-                    LedList[i].SetState(Gpio.PinStat.Low);
-                }
-            }
-            else
-                if (breakPress < 100)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Hi);
-                    }
 
-                    for (int i = 3; i < LedList.Count; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Low);
-                    }
-                }
-            else
-                if (breakPress < 130)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Hi);
-                    }
-
-                    for (int i = 4; i < LedList.Count; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Low);
-                    }
-                }
-            else
-                if (breakPress < 150)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Hi);
-                    }
-
-                    for (int i = 5; i < LedList.Count; i++)
-                    {
-                        LedList[i].SetState(Gpio.PinStat.Low);
-                    }
-                }
-            else
-            {
-                for (int i = 0; i < LedList.Count; i++)
-                {
-                    LedList[i].SetState(Gpio.PinStat.Hi);
-                }
-            }
         }
 
         public void printPorts()
