@@ -342,7 +342,7 @@ namespace ConsoleApp2
             int duty = 10;
             bool demo = false;
 
-
+            printMessage("Open python process");
             pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
 
