@@ -465,26 +465,24 @@ namespace ConsoleApp2
                             break;
 
                         case "D":
-                            if (python == null)
+
+                            if(duty != 10)
                             {
-
-                                if(duty != 10)
-                                {
-                                    duty = 100;
-                                }
-                                else
-                                {
-                                    duty = 10;
-                                }
-                                
-                                printMessage(string.Format("duty = {0}", duty));
-                                python.StandardInput.WriteLine(duty);// duty.ToString());
-
+                                duty = 100;
                             }
                             else
                             {
-                                printMessage("process is close");                                
+                                duty = 10;
                             }
+                                
+                            printMessage(string.Format("duty = {0}", duty));
+                            File.WriteAllText("13", duty.ToString());
+                            File.WriteAllText("19", duty.ToString());
+                            File.WriteAllText("21", duty.ToString());
+                            File.WriteAllText("26", duty.ToString());
+                            File.WriteAllText("5", duty.ToString());
+                            File.WriteAllText("6", duty.ToString());
+                            
                             break;
 
 
