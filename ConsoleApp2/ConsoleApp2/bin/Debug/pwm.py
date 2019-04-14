@@ -18,7 +18,7 @@ my_pwm_3.start(50)
 my_pwm_4.start(50)
 my_pwm_5.start(50)
 my_pwm_6.start(50)
-
+str("program start !!!.....")
 while(1):
         dutyCycle = input("Enter duty cycle ")
         my_pwm_1.ChangeDutyCycle(dutyCycle)
