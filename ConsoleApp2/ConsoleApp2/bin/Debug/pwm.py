@@ -28,7 +28,6 @@ my_pwm_6.start(0)
 print str("srart recive from file")
 value = 0
 while(1):
-{
 		file = open("5", "r")
 		value = int(file.read())
         my_pwm_1.ChangeDutyCycle(value)
@@ -47,5 +46,4 @@ while(1):
 		file = open("21", "r")
 		value = int(file.read())
         my_pwm_6.ChangeDutyCycle(value)
-}
 GPIO.cleanup()
