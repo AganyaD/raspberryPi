@@ -510,6 +510,7 @@ namespace ConsoleApp2
                 {
                     printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
                     demo = false;
+                    breakPress = 0;
                 }
 
             }
