@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 using System.IO.Ports;
+using System.IO;
 
 namespace ConsoleApp2
 {
@@ -130,14 +131,44 @@ namespace ConsoleApp2
         public void pythonProsses(string command)
         {
             Process python = new System.Diagnostics.Process();
-            python.StartInfo.FileName = "/bin/bash";
-            python.StartInfo.Arguments = "-c \" " + command + " \"";
-            python.StartInfo.UseShellExecute = false;
-            python.StartInfo.RedirectStandardOutput = true;
-            python.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
+            //python.StartInfo.FileName = "/bin/bash";
+            //python.StartInfo.Arguments = "-c \" " + command + " \"";
+            //python.StartInfo.UseShellExecute = false;
+            //python.StartInfo.RedirectStandardOutput = true;
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            //startInfo.FileName = "cmd.exe";
+            //startInfo.Arguments = "/C NET USE F: /delete";
+            startInfo.FileName = "/bin/bash";
+            startInfo.Arguments = "-c \" " + command + " \"";
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardInput = true;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.CreateNoWindow = true;
+            python.StartInfo = startInfo;
             python.Start();
+
+            Read(python.StandardOutput);
+            Read(python.StandardError);
+
+
+            //python.Start();
+            
         }
 
+        private static void Read(StreamReader reader)
+        {
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    int current;
+                    while ((current = reader.Read()) >= 0)
+                        Console.Write((char)current);
+                }
+            }).Start();
+        }
         void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             printMessage(e.Data);

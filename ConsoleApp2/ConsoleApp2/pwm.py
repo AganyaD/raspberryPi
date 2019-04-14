@@ -1,4 +1,6 @@
 import RPi.GPIO as GPIO
+import time
+time.sleep(5)
 
 str("program start !!!.....")
 GPIO.setmode(GPIO.BCM)
