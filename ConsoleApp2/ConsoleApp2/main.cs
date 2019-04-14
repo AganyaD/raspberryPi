@@ -447,7 +447,7 @@ namespace ConsoleApp2
                                 }
                                 
                                 printMessage(string.Format("duty = {0}", duty));
-                                python.StandardInput();// duty.ToString());
+                                python.StandardInput.WriteLine(duty);// duty.ToString());
 
                             }
                             else
