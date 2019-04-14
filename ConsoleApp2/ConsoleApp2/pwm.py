@@ -28,7 +28,7 @@ my_pwm_6.start(50)
 str("srart recive from file")
 while(1):
         file = open("5", "r") 
-        my_pwm_1.ChangeDutyCycle(file.read())
+        my_pwm_1.ChangeDutyCycle(int(file.read()))
 		#file = open("6", "r")
         #my_pwm_2.ChangeDutyCycle(file.read())
 		#file = open("13", "r") 
