@@ -496,18 +496,19 @@ namespace ConsoleApp2
 
                     }
 
-                    if (demo)
-                    {
-                        breakPress++;
-                        Thread.Sleep(100);
-
-                    }
-                    if(breakPress == 200)
-                    {
-                        printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
-                    }
+                    
 
                     
+                }
+                if (demo)
+                {
+                    breakPress++;
+                    Thread.Sleep(100);
+
+                }
+                if (breakPress == 200)
+                {
+                    printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
                 }
 
             }
