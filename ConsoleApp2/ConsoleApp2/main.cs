@@ -466,7 +466,7 @@ namespace ConsoleApp2
 
                         case "D":
 
-                            if(duty != 10)
+                            if(duty == 10)
                             {
                                 duty = 100;
                             }

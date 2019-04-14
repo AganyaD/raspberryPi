@@ -29,27 +29,40 @@ print str("srart recive from file")
 value = 0
 while(1):
         file = open("5", "r")
-		try:
-                value = int(file.read())
+        try:
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_1.ChangeDutyCycle(value)
         file = open("6", "r")
         try:
-                value = int(file.read())
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_2.ChangeDutyCycle(value)
         file = open("13", "r")
         try:
-                value = int(file.read())
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_3.ChangeDutyCycle(value)
         file = open("26", "r")
         try:
-                value = int(file.read())
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_4.ChangeDutyCycle(value)
         file = open("19", "r")
         try:
-                value = int(file.read())
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_5.ChangeDutyCycle(value)
         file = open("21", "r")
         try:
-                value = int(file.read())
+           value = int(file.read())
+        except:
+              print("Something went wrong")
         my_pwm_6.ChangeDutyCycle(value)
+
 GPIO.cleanup()
