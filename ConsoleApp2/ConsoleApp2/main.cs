@@ -503,12 +503,13 @@ namespace ConsoleApp2
                 if (demo)
                 {
                     breakPress++;
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
 
                 }
                 if (breakPress == 200)
                 {
                     printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
+                    demo = false;
                 }
 
             }
