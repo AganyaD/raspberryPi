@@ -132,7 +132,7 @@ namespace ConsoleApp2
 
         public void pythonProsses(string command)
         {
-            Process python = new System.Diagnostics.Process();
+            python = new System.Diagnostics.Process();
             //python.StartInfo.FileName = "/bin/bash";
             //python.StartInfo.Arguments = "-c \" " + command + " \"";
             //python.StartInfo.UseShellExecute = false;
@@ -344,13 +344,22 @@ namespace ConsoleApp2
             int mode = 0;
             int duty = 10;
             bool demo = false;
-
+            bool exsit = false;
             printMessage("Open python process");
             pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
 
             while (true)
             {
+                if(exsit)
+                {
+                    printMessage("Close python Pross");
+                    python.Kill();
+                    printMessage("Close CAN");
+                    main_port.Write("C\r");
+                    printMessage("Exit program By By...");
+                }
+
                 ReadSerial_main();
 
                 
@@ -499,6 +508,11 @@ namespace ConsoleApp2
                             printMessage("Start demo");
                             demo = true;
                             mode = 0;
+                            break;
+
+                        case "EXIT":
+                            
+                            demo = true;
                             break;
 
                         default:

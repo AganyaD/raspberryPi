@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-time.sleep(5)
+#time.sleep(5)
 
 print str("program start !!!.....")
 GPIO.setmode(GPIO.BCM)
@@ -26,43 +26,60 @@ my_pwm_4.start(0)
 my_pwm_5.start(0)
 my_pwm_6.start(0)
 print str("srart recive from file")
-value = 0
+value1 = 0
+value2 = 0
+value3 = 0
+value4 = 0
+value5 = 0
+value6 = 0
 while(1):
         file = open("5", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_1.ChangeDutyCycle(value)
+        if value != value1:
+           value1 = value
+           my_pwm_1.ChangeDutyCycle(value1)
         file = open("6", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_2.ChangeDutyCycle(value)
+        if value != value2:
+           value2 = value
+           my_pwm_2.ChangeDutyCycle(value2)
         file = open("13", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_3.ChangeDutyCycle(value)
+        if value != value3:
+           value3 = value
+           my_pwm_3.ChangeDutyCycle(value3)
         file = open("26", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_4.ChangeDutyCycle(value)
+        if value != value4:
+           value4 = value
+           my_pwm_4.ChangeDutyCycle(value4)
         file = open("19", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_5.ChangeDutyCycle(value)
+        if value != value5:
+           value5 = value
+           my_pwm_5.ChangeDutyCycle(value5)
         file = open("21", "r")
         try:
            value = int(file.read())
         except:
               print("Something went wrong")
-        my_pwm_6.ChangeDutyCycle(value)
+        if value != value6:
+           value6 = value
+           my_pwm_6.ChangeDutyCycle(value6) 
 
 GPIO.cleanup()
