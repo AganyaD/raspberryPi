@@ -498,6 +498,7 @@ namespace ConsoleApp2
                         case "DEMO":
                             printMessage("Start demo");
                             demo = true;
+                            mode = 0;
                             break;
 
                         default:
@@ -525,7 +526,7 @@ namespace ConsoleApp2
                         gasPress--;
                     }
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(30);
 
                 }
                 if (breakPress == 200 && demo)
