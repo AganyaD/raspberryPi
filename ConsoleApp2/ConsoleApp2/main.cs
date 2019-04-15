@@ -512,7 +512,7 @@ namespace ConsoleApp2
 
                         case "EXIT":
                             
-                            demo = true;
+                            exsit = true;
                             break;
 
                         default:
