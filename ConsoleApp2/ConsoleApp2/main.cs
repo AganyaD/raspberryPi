@@ -544,7 +544,7 @@ namespace ConsoleApp2
 
                     mode++;
                 }
-                if ( mode >= 11 && demo)
+                if ( mode >= 50 && demo)
                 {
 
                     mode=1;
