@@ -25,6 +25,8 @@ namespace ConsoleApp2
         double lastSpeedTime = 0;
         double acc = 0.0;
         double breakPress = 0.0;
+        double gasPress = 0.0;
+        bool yelow = false;
         List<string> inFramList = new List<string>();
 
 
@@ -333,7 +335,8 @@ namespace ConsoleApp2
             main_port.Write("O\r");
 
 
-            double tempPress = 0;
+            double tempBreakPress = 0;
+            double tempGasPress = 0;
             bool pwm = false;
             int ontime = 0;
             
@@ -350,14 +353,26 @@ namespace ConsoleApp2
             {
                 ReadSerial_main();
 
-                if (tempPress != breakPress)
+                
+                if (tempBreakPress != breakPress)
                 {
 
-                    printMessage(string.Format("{0} tempPress != breakPress {1}",tempPress,breakPress));
-                    tempPress = breakPress;
-                    setOutput();
+                    printMessage(string.Format("{0} tempPress != breakPress {1}",tempBreakPress,breakPress));
+                    tempBreakPress = breakPress;
+                    setOutputBreak();
                 }
 
+                if(tempGasPress != gasPress)
+                {
+                    printMessage(string.Format("{0} tempPress != Gas Press {1}", tempGasPress, gasPress));
+                    tempGasPress = gasPress;
+                    setOutputGas();
+                }
+
+                if(gasPress == 0 && breakPress == 0 && yelow) 
+                {
+                    setOutputYello();
+                }
                
 
 
@@ -494,17 +509,43 @@ namespace ConsoleApp2
                 }
                 if (demo)
                 {
-                    breakPress++;
-                    Thread.Sleep(500);
+                    if (mode == 0)
+                    {
+                        gasPress++;
+                    }
+                    else if (mode == 1)
+                    {
+                        breakPress++;
+                    }
+                    else if (mode == 2)
+                    {
+                        gasPress--;
+                    }
+
+                    Thread.Sleep(100);
 
                 }
-                if (breakPress == 200)
+                if (breakPress == 200 && demo)
                 {
                     printMessage("@@@@@@@@@ Demo is Done @@@@@@@@");
                     demo = false;
                     breakPress = 0;
                 }
+                if (gasPress == 200 && demo)
+                {
+           
+                    mode = 2;
+                }
+                if (gasPress == 0 && mode >= 2 && demo)
+                {
 
+                    mode++;
+                }
+                if ( mode >= 11 && demo)
+                {
+
+                    mode=1;
+                }
             }
             if (interface_port!= null)
                 interface_port.Close();
@@ -513,10 +554,15 @@ namespace ConsoleApp2
 
         }
 
-        void setOutput()
+
+
+        void setOutputBreak()
         {
             int value = Convert.ToInt32(breakPress * 3.5);
             string[] levels = { "26", "19", "13", "6", "5", "21" };
+            //red
+            s1.SetState(Gpio.PinStat.Hi);
+            s0.SetState(Gpio.PinStat.Low);
 
             foreach (string lev in levels)
             {
@@ -535,6 +581,75 @@ namespace ConsoleApp2
                 }
                 value -= 100;
             }
+
+        }
+
+
+        void setOutputGas()
+        {
+            int value = Convert.ToInt32(gasPress * 3);
+            string[] levels = {  "6", "5", "21" };
+            //green
+            s1.SetState(Gpio.PinStat.Low);
+            s0.SetState(Gpio.PinStat.Hi);
+
+            // off "26", "19", "13"
+            File.WriteAllText("26", "0");
+            File.WriteAllText("19", "0");
+            File.WriteAllText("13", "0");
+
+            foreach (string lev in levels)
+            {
+                if (value >= 0 && value <= 100)
+                {
+                    //level1
+                    File.WriteAllText(lev, value.ToString());
+                }
+                else if (value >= 100)
+                {
+                    File.WriteAllText(lev, "100");
+                }
+                else if (value <= 0)
+                {
+                    File.WriteAllText(lev, "0");
+                }
+                value -= 100;
+            }
+
+        }
+
+        void setOutputYello()
+        {
+            //int value = Convert.ToInt32(breakPress * 3);
+            //string[] levels = { "6", "5", "21" };
+            //yello
+            s1.SetState(Gpio.PinStat.Low);
+            s0.SetState(Gpio.PinStat.Low);
+
+            // off "26", "19", "13"
+            File.WriteAllText("26", "0");
+            File.WriteAllText("19", "0");
+            File.WriteAllText("13", "100");
+            File.WriteAllText("6", "100");
+            File.WriteAllText("5", "0");
+            File.WriteAllText("21", "0");
+            //foreach (string lev in levels)
+            //{
+            //    if (value >= 0 && value <= 100)
+            //    {
+            //        //level1
+            //        File.WriteAllText(lev, value.ToString());
+            //    }
+            //    else if (value >= 100)
+            //    {
+            //        File.WriteAllText(lev, "100");
+            //    }
+            //    else if (value <= 0)
+            //    {
+            //        File.WriteAllText(lev, "0");
+            //    }
+            //    value -= 100;
+            //}
 
         }
 
