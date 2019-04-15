@@ -360,6 +360,7 @@ namespace ConsoleApp2
                     printMessage(string.Format("{0} tempPress != breakPress {1}",tempBreakPress,breakPress));
                     tempBreakPress = breakPress;
                     setOutputBreak();
+                    yelow = true;
                 }
 
                 if(tempGasPress != gasPress)
@@ -367,10 +368,12 @@ namespace ConsoleApp2
                     printMessage(string.Format("{0} tempPress != Gas Press {1}", tempGasPress, gasPress));
                     tempGasPress = gasPress;
                     setOutputGas();
+                    yelow = true;
                 }
 
                 if(gasPress == 0 && breakPress == 0 && yelow) 
                 {
+                    yelow = false;
                     setOutputYello();
                 }
                
