@@ -583,14 +583,18 @@ namespace ConsoleApp2
             levelsValue[pin] = value;
         }
 
+        int mode = 0;
         void setOutputBreak()
         {
             int value = Convert.ToInt32(breakPress * 3.5);
             string[] levels = { "26", "19", "13", "6", "5", "21" };
             //red
-            s1.SetState(Gpio.PinStat.Hi);
-            s0.SetState(Gpio.PinStat.Low);
-
+            if (mode != 1)
+            {
+                s1.SetState(Gpio.PinStat.Hi);
+                s0.SetState(Gpio.PinStat.Low);
+                mode = 1;
+            }
             foreach (string lev in levels)
             {
                 if (value >= 0 && value <= 100)
@@ -623,9 +627,12 @@ namespace ConsoleApp2
             int value = Convert.ToInt32(gasPress * 3);
             string[] levels = {  "6", "5", "21" };
             //green
-            s1.SetState(Gpio.PinStat.Low);
-            s0.SetState(Gpio.PinStat.Hi);
-
+            if (mode != 2)
+            {
+                s1.SetState(Gpio.PinStat.Low);
+                s0.SetState(Gpio.PinStat.Hi);
+                mode = 2;
+            }
             // off "26", "19", "13"
             SetPin("26", 0);
             SetPin("19", 0);
@@ -662,9 +669,12 @@ namespace ConsoleApp2
             //int value = Convert.ToInt32(breakPress * 3);
             //string[] levels = { "6", "5", "21" };
             //yello
-            s1.SetState(Gpio.PinStat.Low);
-            s0.SetState(Gpio.PinStat.Low);
-
+            if (mode != 0)
+            {
+                s1.SetState(Gpio.PinStat.Low);
+                s0.SetState(Gpio.PinStat.Low);
+                mode = 0;
+            }
             // off "26", "19", "13"
             SetPin("26", 0);
             SetPin("19", 0);
