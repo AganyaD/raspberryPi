@@ -111,9 +111,9 @@ namespace ConsoleApp2
             levelsValue.Add("13", 0);
             levelsValue.Add("6", 0);
             levelsValue.Add("5", 0);
-            levelsValue.Add("12", 0);
+            levelsValue.Add("21", 0);
 
-            LedList.Add(new Gpio(21));
+            //LedList.Add(new Gpio(21));
             s0 = new Gpio(23);
             s1 = new Gpio(24);
             if (debug)
