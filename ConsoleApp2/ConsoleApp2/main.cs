@@ -349,6 +349,13 @@ namespace ConsoleApp2
             printMessage("Open python process");
             pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
+            new Thread(() =>
+            {
+                while (true)
+                {
+                    ReadSerial_main();
+                }
+            }).Start();
 
             while (true)
             {
@@ -360,8 +367,6 @@ namespace ConsoleApp2
                     main_port.Write("C\r");
                     printMessage("Exit program By By...");
                 }
-
-                ReadSerial_main();
 
                 
                 if (tempBreakPress != breakPress)
@@ -381,7 +386,7 @@ namespace ConsoleApp2
                     yelow = true;
                 }
 
-                if(gasPress == 0 && breakPress == 0 && yelow) 
+                if(gasPress == 0 && breakPress == 0)// && yelow) 
                 {
                     yelow = false;
                     setOutputYello();
