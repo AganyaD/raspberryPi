@@ -90,6 +90,9 @@ namespace ConsoleApp2
         List<Gpio> LedList = new List<Gpio>();
         Gpio s0;
         Gpio s1;
+
+        
+
         void initGpios()
         {
 
@@ -101,6 +104,15 @@ namespace ConsoleApp2
             //////////LedList.Add(new Gpio(12));  //5
             //////////LedList.Add(new Gpio(16));
             //////////LedList.Add(new Gpio(20));
+            ///
+
+            levelsValue.Add("26", 0);
+            levelsValue.Add("19", 0);
+            levelsValue.Add("13", 0);
+            levelsValue.Add("6", 0);
+            levelsValue.Add("5", 0);
+            levelsValue.Add("12", 0);
+
             LedList.Add(new Gpio(21));
             s0 = new Gpio(23);
             s1 = new Gpio(24);
@@ -299,29 +311,13 @@ namespace ConsoleApp2
             try
             {
                 main_port.Open();
-                //new System.Threading.Thread(() =>
-                //{
-                //    System.Threading.Thread.CurrentThread.IsBackground = true;
-                //    ReadSerial_main();
-                //}).Start();
             }
             catch (Exception e)
             {
                 printMessage(e.Message);
                 return;
             }
-
-
-
-            //pin26.SetPin();
-
-            //Console.WriteLine("Commands\n"+
-            //                  "setPin26\n"+
-            //                  "setPin26-1\n"+
-            //                  "setPin26-0\n"+
-            //                  "q"
-            //    );
-
+            
             printMessage("Start!!!!!!!!!!!!!!!!");
 
 
@@ -578,7 +574,14 @@ namespace ConsoleApp2
 
         }
 
+        Dictionary<string, int> levelsValue = new Dictionary<string, int>();
 
+        void SetPin(string pin,int value)
+        {
+            if (levelsValue[pin] != value)
+                File.WriteAllText(pin, value.ToString());
+            levelsValue[pin] = value;
+        }
 
         void setOutputBreak()
         {
@@ -593,15 +596,21 @@ namespace ConsoleApp2
                 if (value >= 0 && value <= 100)
                 {
                     //level1
-                    File.WriteAllText(lev, value.ToString());
+                    SetPin(lev, value);
+
+                    //if (levelsValue[lev] != value)
+                    //    File.WriteAllText(lev, value.ToString());
                 }
                 else if (value >= 100)
                 {
-                    File.WriteAllText(lev, "100");
+                    SetPin(lev, 100);
+                    //if (levelsValue[lev] != 100)
+                    //    File.WriteAllText(lev, "100");
                 }
                 else if (value <= 0)
                 {
-                    File.WriteAllText(lev, "0");
+                    SetPin(lev, 0);
+                    //File.WriteAllText(lev, "0");
                 }
                 value -= 100;
             }
@@ -618,24 +627,30 @@ namespace ConsoleApp2
             s0.SetState(Gpio.PinStat.Hi);
 
             // off "26", "19", "13"
-            File.WriteAllText("26", "0");
-            File.WriteAllText("19", "0");
-            File.WriteAllText("13", "0");
+            SetPin("26", 0);
+            SetPin("19", 0);
+            SetPin("13", 0);
+            //File.WriteAllText("26", "0");
+            //File.WriteAllText("19", "0");
+            //File.WriteAllText("13", "0");
 
             foreach (string lev in levels)
             {
                 if (value >= 0 && value <= 100)
                 {
                     //level1
-                    File.WriteAllText(lev, value.ToString());
+                    SetPin(lev, value);
+                    //File.WriteAllText(lev, value.ToString());
                 }
                 else if (value >= 100)
                 {
-                    File.WriteAllText(lev, "100");
+                    SetPin(lev, 100);
+                    //File.WriteAllText(lev, "100");
                 }
                 else if (value <= 0)
                 {
-                    File.WriteAllText(lev, "0");
+                    SetPin(lev, 0);
+                    //File.WriteAllText(lev, "0");
                 }
                 value -= 100;
             }
@@ -651,12 +666,19 @@ namespace ConsoleApp2
             s0.SetState(Gpio.PinStat.Low);
 
             // off "26", "19", "13"
-            File.WriteAllText("26", "0");
-            File.WriteAllText("19", "0");
-            File.WriteAllText("13", "100");
-            File.WriteAllText("6", "100");
-            File.WriteAllText("5", "0");
-            File.WriteAllText("21", "0");
+            SetPin("26", 0);
+            SetPin("19", 0);
+            SetPin("13", 100);
+            SetPin("6", 100);
+            SetPin("5", 0);
+            SetPin("21", 0);
+            
+            //File.WriteAllText("26", "0");
+            //File.WriteAllText("19", "0");
+            //File.WriteAllText("13", "100");
+            //File.WriteAllText("6", "100");
+            //File.WriteAllText("5", "0");
+            //File.WriteAllText("21", "0");
             //foreach (string lev in levels)
             //{
             //    if (value >= 0 && value <= 100)
