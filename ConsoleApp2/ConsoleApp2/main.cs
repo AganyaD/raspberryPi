@@ -722,52 +722,7 @@ namespace ConsoleApp2
                         {
                             string mess = split[i];
                             //t7E8803410D0055555555
-                            if ((mess.Contains("t7E") || mess.Contains("t3E9")) && false)
-                            {
-                                inFramList.Add(mess);
-                                //t7E8803410D0055555555
-                                string t = mess.Substring(9, 2);
-
-                                {
-                                    double speedDataKmPerH = 0;
-                                    if (mess.Contains("t3E9"))
-                                    {
-                                        double speedDatamilsPerH = Convert.ToInt16(mess.Substring(5, 4), 16);
-                                        speedDataKmPerH = Convert.ToInt16((double)((double)speedDatamilsPerH / 100) / 0.62137);
-                                    }
-                                    else if (mess.Substring(9, 2) == "0D" && mess.Contains("t7E"))
-                                    {
-                                        speedDataKmPerH = Convert.ToInt16(mess.Substring(11, 2), 16);
-                                    }
-
-                                    t = mess.Substring(mess.Length - 4, 4);
-                                    double speedDataTitmeS = (double)Convert.ToInt16(mess.Substring(mess.Length - 4, 4), 16) / 1000;
-                                    string toText = speedDataKmPerH.ToString();
-
-                                    double temp_speedDataTitmeS = speedDataTitmeS;
-
-                                    if (speedDataTitmeS < lastSpeedTime)
-                                    {
-                                        temp_speedDataTitmeS += 60;
-                                    }
-
-                                    acc = (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
-                                    //acc = (double)acc;
-
-                                    new System.Threading.Thread(() =>
-                                    {
-
-
-                                    }).Start();
-
-                                    lastSpeedTime = speedDataTitmeS;
-                                    lastSpeed = speedDataKmPerH;
-                                }
-
-                                //this.Invoke(new EventHandler(DisplayText));
-
-                            }
-
+                            
                             if (mess.Contains("t0F1") && true)
                             {
                                 int t_loc = mess.IndexOf('t'); ;
@@ -834,34 +789,6 @@ namespace ConsoleApp2
                                 //this.Invoke(new EventHandler(DisplayText));
 
                             }
-                            // t 7E8 8 03 41 0D 00 55 55 55 55
-                            //"t19D8C0003FFD000BD9FFCBA3"
-                            //if (mess.Contains("t") && false)
-                            //{
-                            //    try
-                            //    {
-                            //        int mesid = Convert.ToInt16(mess.Substring(1, 3), 16);
-
-                            //        int lng = Convert.ToInt16(mess.Substring(4, 1), 16);
-
-                            //        byte[] data = new byte[lng];
-
-                            //        for (int indx = 0; indx < lng; indx++)
-                            //        {
-                            //            data[indx] = Convert.ToByte(mess.Substring(5 + indx + (indx * 2), 2), 16);
-                            //        }
-
-                            //        CanMessageData candata;
-                            //        candata = new CanMessageData(data);
-                            //        CanMessage message = new CanMessage(mesid, candata);
-
-                            //        //datagridUpdataInfo(message);
-                            //    }
-                            //    catch
-                            //    {
-
-                            //    }
-                            //}
                         }
 
                     }
@@ -878,46 +805,6 @@ namespace ConsoleApp2
             }
 
         }
-
-
-        ////void ReadSerial_interface(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        //{
-        //    printMessage("reciveDate Function");
-        //    receiveBuffer_i = interface_port.ReadExisting();
-        //    Console.WriteLine("Debug recive inretface:" + receiveBuffer_i);
-        //    //if (receiveBuffer_i != "")
-        //    //{
-
-        //    //    string command = receiveBuffer_i;
-                       
-        //    //        switch(command.ToUpper())
-        //    //        {
-        //    //            case "S":
-        //    //                printMessage("set CAN to 500Kbit");
-        //    //                main_port.Write("S6\r");
-        //    //                break;
-
-        //    //            case "O":
-        //    //                printMessage("Open Can port");
-        //    //                main_port.Write("O\r");
-        //    //                break;
-
-        //    //            case "C":
-        //    //                printMessage("Close Can port");
-        //    //                main_port.Write("C\r");
-        //    //                break;
-        //    //        default:
-        //    //            Console.WriteLine("recive inretface:" + receiveBuffer_i);
-        //    //            break;
-
-        //    //        }
-
-        //    //receiveBuffer = "";
-
-        //    //}   
-
-        //}
-
-
+ 
     }
 }
