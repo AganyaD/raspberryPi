@@ -777,36 +777,62 @@ namespace ConsoleApp2
                                 //"t0F1 4 34 00 00 40 9633"
                                 string t;
 
-                                {
-                                    string data = mess.Substring(t_loc + 7, 2);
-                                    double press = Convert.ToInt16(data, 16);
-                                    //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
-                                    //t = mess.Substring(mess.Length - 4, 4);
-                                    //double pressDataTitmeS = Convert.ToUInt16(t, 16);
-                                    string toText = press.ToString();
+                                
+                                string data = mess.Substring(t_loc + 7, 2);
+                                double press = Convert.ToInt16(data, 16);
+                                //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
+                                //t = mess.Substring(mess.Length - 4, 4);
+                                //double pressDataTitmeS = Convert.ToUInt16(t, 16);
+                                string toText = press.ToString();
 
-                                    //double temp_speedDataTitmeS = pressDataTitmeS;
+                                //double temp_speedDataTitmeS = pressDataTitmeS;
 
-                                    //if (pressDataTitmeS < lastSpeedTime)
-                                    //{
-                                    //    temp_speedDataTitmeS += 60;
-                                    //}
+                                //if (pressDataTitmeS < lastSpeedTime)
+                                //{
+                                //    temp_speedDataTitmeS += 60;
+                                //}
 
-                                    breakPress = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
-                                    //acc = (double)acc;
+                                breakPress = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
+                                //acc = (double)acc;
 
-                                    //lastSpeedTime = pressDataTitmeS;
-                                    //lastSpeed = speedDataKmPerH;
+                                //lastSpeedTime = pressDataTitmeS;
+                                //lastSpeed = speedDataKmPerH;
 
-                                    printMessage(string.Format("message : {0} ",mess));
-                                    printMessage(string.Format("value hex : {0} ",data));
-                                    printMessage(string.Format("value dec : {0} ", press));
-                                }
+                                printMessage(string.Format("message : {0} ",mess));
+                                printMessage(string.Format("value hex : {0} ",data));
+                                printMessage(string.Format("value dec : {0} ", press));
+                                
 
                                 //this.Invoke(new EventHandler(DisplayText));
 
                             }
 
+                            if (mess.Contains("t0C9") && true)
+                            {
+                                int t_loc = mess.IndexOf('t'); ;
+
+                                //01234 56 78 9  11 13 15 17 19 
+                                //t3E98 00 00 00 13 00 00 00 13
+
+                                //"t0F1 4 34 00 00 40 9633"
+                                string t;
+
+
+                                string data = mess.Substring(t_loc + 13, 2);
+                                double press = Convert.ToInt16(data, 16);
+                                
+                                string toText = press.ToString();
+
+                                gasPress = press;
+
+                                printMessage(string.Format("message : {0} ", mess));
+                                printMessage(string.Format("value hex : {0} ", data));
+                                printMessage(string.Format("value dec : {0} ", press));
+
+
+                                //this.Invoke(new EventHandler(DisplayText));
+
+                            }
                             // t 7E8 8 03 41 0D 00 55 55 55 55
                             //"t19D8C0003FFD000BD9FFCBA3"
                             //if (mess.Contains("t") && false)
