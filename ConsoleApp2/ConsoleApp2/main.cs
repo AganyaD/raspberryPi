@@ -571,7 +571,7 @@ namespace ConsoleApp2
                         gasPress--;
                     }
 
-                    Thread.Sleep(50);
+                    Thread.Sleep(10);
 
                 }
                 if (breakPress == 200 && demo)
