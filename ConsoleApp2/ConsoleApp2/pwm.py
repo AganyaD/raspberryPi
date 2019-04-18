@@ -91,6 +91,7 @@ while(1):
               print("Something went wrong")
         if value != "0":
            print("Exsit program")
+		   print value
            break
 
 GPIO.cleanup()
