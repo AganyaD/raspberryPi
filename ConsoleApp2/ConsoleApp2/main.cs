@@ -191,8 +191,9 @@ namespace ConsoleApp2
             python.StartInfo = startInfo;
             python.Start();
 
-            Read(python.StandardOutput);
-            Read(python.StandardError);
+            python.WaitForExit();
+            //Read(python.StandardOutput);
+            //Read(python.StandardError);
 
 
             //python.Start();
@@ -370,8 +371,8 @@ namespace ConsoleApp2
             bool demo = false;
             bool exsit = false;
 
-            printMessage("Open python process");
-            pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
+            //printMessage("Open python process");
+            //pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
             new Thread(() =>
             {
@@ -415,8 +416,8 @@ namespace ConsoleApp2
                     yelow = false;
                     setOutputYello();
                 }
-               
 
+                pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
                 if (interface_port.IsOpen && interface_port.BytesToRead>0)
                 {
