@@ -371,6 +371,9 @@ namespace ConsoleApp2
             bool demo = false;
             bool exsit = false;
 
+            File.WriteAllText("exit", "1");
+            Thread.Sleep(100);
+            File.WriteAllText("exit", "0");
             printMessage("Open python process");
             pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 

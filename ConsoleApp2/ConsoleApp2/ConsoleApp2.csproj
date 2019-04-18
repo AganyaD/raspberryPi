@@ -97,6 +97,9 @@
     <None Include="6">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="exit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="pwm.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

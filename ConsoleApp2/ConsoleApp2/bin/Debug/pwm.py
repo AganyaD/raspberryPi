@@ -84,4 +84,12 @@ while(1):
            value6 = value
            my_pwm_6.ChangeDutyCycle(value6) 
 
+        file = open("exit", "r")
+        try:
+           value = int(file.read())
+        except:
+              print("Something went wrong")
+        if value != "0":
+           break
+
 GPIO.cleanup()
