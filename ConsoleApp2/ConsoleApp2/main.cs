@@ -378,6 +378,9 @@ namespace ConsoleApp2
             printMessage("Open python process");
             pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
+            Thread.Sleep(100);
+
+            ledTest();
             new Thread(() =>
             {
                 while (true)
@@ -617,6 +620,30 @@ namespace ConsoleApp2
         }
 
         int mode = 0;
+
+        void ledTest()
+        {
+            string[] levels = { "26", "19", "13", "6", "5", "21" };
+            s1.SetState(Gpio.PinStat.Low);
+            s0.SetState(Gpio.PinStat.Low);
+
+            foreach (string lev in levels)
+            {
+                SetPin(lev, 100);
+            }
+            Thread.Sleep(100);
+            s1.SetState(Gpio.PinStat.Low);
+            s0.SetState(Gpio.PinStat.Hi);
+            Thread.Sleep(100);
+            s1.SetState(Gpio.PinStat.Hi);
+            s0.SetState(Gpio.PinStat.Hi);
+            Thread.Sleep(100);
+            s1.SetState(Gpio.PinStat.Hi);
+            s0.SetState(Gpio.PinStat.Low);
+            Thread.Sleep(100);
+
+        }
+
         void setOutputBreak()
         {
             int value = Convert.ToInt32(breakPress * 3.5);
