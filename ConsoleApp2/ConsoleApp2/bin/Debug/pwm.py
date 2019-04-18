@@ -89,7 +89,7 @@ while(1):
            value = int(file.read())
         except:
               print("Something went wrong")
-        if value != "0":
+        if value != 0:
            print("Exsit program")
            print value
            break
