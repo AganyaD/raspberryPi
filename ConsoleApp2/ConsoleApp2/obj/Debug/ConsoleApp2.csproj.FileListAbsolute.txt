@@ -27,3 +27,10 @@ C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\21
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\26
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\5
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\6
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\13
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\19
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\21
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\26
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\5
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\6
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\pwm.py

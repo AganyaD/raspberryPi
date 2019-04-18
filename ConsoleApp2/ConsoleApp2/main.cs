@@ -29,6 +29,34 @@ namespace ConsoleApp2
         bool yelow = false;
         List<string> inFramList = new List<string>();
 
+        CanLocationData CanMessageId_Break = new CanLocationData("0F1",1);
+        CanLocationData CanMessageId_Gas = new CanLocationData("0C9", 4);
+        class CanLocationData
+        {
+            string MessageId;
+            int dataByteNum;
+            /// <summary>
+            /// dataByteNum = 0-7
+            /// </summary>
+            /// <param name="MessageId"></param>
+            /// <param name="dataByteNum"></param>
+            public CanLocationData(string MessageId, int dataByteNum)
+            {
+                this.MessageId = MessageId;
+                this.dataByteNum = dataByteNum;
+            }
+
+            public string getMesID()
+            {
+                return MessageId;
+            }
+
+            public int getDataByteNum()
+            {
+                return dataByteNum;
+            }
+        }
+
 
         SerialPort interface_port;
         SerialPort main_port;
@@ -760,58 +788,38 @@ namespace ConsoleApp2
                             string mess = split[i];
                             //t7E8803410D0055555555
                             
-                            if (mess.Contains("t0F1") && true)
+                            if (mess.Contains("t" + CanMessageId_Break.getMesID()) && true)
                             {
                                 int t_loc = mess.IndexOf('t'); ;
-                                
                                 //01234 56 78 9  11 13 15 17 19 
                                 //t3E98 00 00 00 13 00 00 00 13
-
                                 //"t0F1 4 34 00 00 40 9633"
-                                string t;
 
-                                
-                                string data = mess.Substring(t_loc + 7, 2);
+                                int byteLoc = t_loc + 5 + (CanMessageId_Break.getDataByteNum() * 2);
+                                string data = mess.Substring(byteLoc, 2);
                                 double press = Convert.ToInt16(data, 16);
-                                //double speedDataKmPerH = (double)((double)speedDatamilsPerH / 100) / 0.62137;
-                                //t = mess.Substring(mess.Length - 4, 4);
-                                //double pressDataTitmeS = Convert.ToUInt16(t, 16);
+
                                 string toText = press.ToString();
 
-                                //double temp_speedDataTitmeS = pressDataTitmeS;
-
-                                //if (pressDataTitmeS < lastSpeedTime)
-                                //{
-                                //    temp_speedDataTitmeS += 60;
-                                //}
-
-                                breakPress = press; // (double)(speedDataKmPerH - lastSpeed) / (double)(temp_speedDataTitmeS - lastSpeedTime);
-                                //acc = (double)acc;
-
-                                //lastSpeedTime = pressDataTitmeS;
-                                //lastSpeed = speedDataKmPerH;
+                                breakPress = press;
 
                                 printMessage(string.Format("message : {0} ",mess));
                                 printMessage(string.Format("value hex : {0} ",data));
                                 printMessage(string.Format("value dec : {0} ", press));
-                                
-
-                                //this.Invoke(new EventHandler(DisplayText));
 
                             }
 
-                            if (mess.Contains("t0C9") && true)
+                            if (mess.Contains("t" + CanMessageId_Gas.getMesID()) && true)
                             {
                                 int t_loc = mess.IndexOf('t'); ;
-
                                 //01234 56 78 9  11 13 15 17 19 
                                 //t3E98 00 00 00 13 00 00 00 13
 
                                 //"t0F1 4 34 00 00 40 9633"
-                                string t;
 
+                                int byteLoc = t_loc + 5 + (CanMessageId_Gas.getDataByteNum() * 2);
+                                string data = mess.Substring(byteLoc, 2);
 
-                                string data = mess.Substring(t_loc + 13, 2);
                                 double press = Convert.ToInt16(data, 16);
                                 
                                 string toText = press.ToString();
@@ -821,9 +829,6 @@ namespace ConsoleApp2
                                 printMessage(string.Format("message : {0} ", mess));
                                 printMessage(string.Format("value hex : {0} ", data));
                                 printMessage(string.Format("value dec : {0} ", press));
-
-
-                                //this.Invoke(new EventHandler(DisplayText));
 
                             }
                         }
