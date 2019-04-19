@@ -386,7 +386,12 @@ namespace ConsoleApp2
             {
                 while (true)
                 {
-                    ReadSerial_main();
+                    try
+                    {
+                        ReadSerial_main();
+                    }
+                    catch
+                    { printMessage("fail read thread exsaption"); }
                 }
             }).Start();
 
@@ -686,6 +691,7 @@ namespace ConsoleApp2
                     //File.WriteAllText(lev, "0");
                 }
                 value -= 100;
+
             }
 
         }
