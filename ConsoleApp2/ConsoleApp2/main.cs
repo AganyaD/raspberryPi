@@ -381,6 +381,7 @@ namespace ConsoleApp2
             Thread.Sleep(100);
 
             ledTest();
+
             new Thread(() =>
             {
                 while (true)
@@ -631,16 +632,24 @@ namespace ConsoleApp2
             {
                 SetPin(lev, 100);
             }
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             s1.SetState(Gpio.PinStat.Low);
             s0.SetState(Gpio.PinStat.Hi);
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             s1.SetState(Gpio.PinStat.Hi);
             s0.SetState(Gpio.PinStat.Hi);
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             s1.SetState(Gpio.PinStat.Hi);
             s0.SetState(Gpio.PinStat.Low);
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
+
+            foreach (string lev in levels)
+            {
+                SetPin(lev, 0);
+            }
+
+            s1.SetState(Gpio.PinStat.Low);
+            s0.SetState(Gpio.PinStat.Low);
 
         }
 
