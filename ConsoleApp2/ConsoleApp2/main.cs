@@ -797,8 +797,14 @@ namespace ConsoleApp2
 
             if (main_port.IsOpen && main_port.BytesToRead>0)
             {
-                receiveBuffer += main_port.ReadExisting();
-
+                try
+                {
+                    receiveBuffer += main_port.ReadExisting();
+                }
+                catch
+                {
+                    printMessage("Error reading data From Main port");
+                }
                 if (receiveBuffer != "")
                 {
                     receiveBuffer = temp + receiveBuffer;
@@ -807,78 +813,93 @@ namespace ConsoleApp2
                     temp = "";
                     if (receiveBuffer.Contains("\r"))
                     {
-                        string[] split = receiveBuffer.Split('\r');
-                        char[] chararry = receiveBuffer.ToArray();
-
-                        if (chararry[chararry.Count() - 1] != '\r')
+                        try
                         {
-                            temp = split[split.Count() - 1];
-                        }
+                            string[] split = receiveBuffer.Split('\r');
+                            char[] chararry = receiveBuffer.ToArray();
 
-                        int limit = split.Count();
+                            if (chararry[chararry.Count() - 1] != '\r')
+                            {
+                                temp = split[split.Count() - 1];
+                            }
 
-                        if (temp != "")
-                        {
-                            limit--;
-                            receiveBuffer = receiveBuffer.Substring(0, receiveBuffer.Length - temp.Length);
-                        }
+                            int limit = split.Count();
 
+                            if (temp != "")
+                            {
+                                limit--;
+                                receiveBuffer = receiveBuffer.Substring(0, receiveBuffer.Length - temp.Length);
+                            }
+                        
 
                         for (int i = 0; i < limit; i++)
                         {
-                            string mess = split[i];
-                            //t7E8803410D0055555555
-                            
-                            if (mess.Contains("t" + CanMessageId_Break.getMesID()) && true)
+                            try
                             {
-                                int t_loc = mess.IndexOf('t'); ;
-                                //01234 56 78 9  11 13 15 17 19 
-                                //t3E98 00 00 00 13 00 00 00 13
-                                //"t0F1 4 34 00 00 40 9633"
+                                string mess = split[i];
+                                //t7E8803410D0055555555
 
-                                int byteLoc = t_loc + 5 + (CanMessageId_Break.getDataByteNum() * 2);
-                                string data = mess.Substring(byteLoc, 2);
-                                double press = Convert.ToInt16(data, 16);
+                                if (mess.Contains("t" + CanMessageId_Break.getMesID()) && true)
+                                {
+                                    int t_loc = mess.IndexOf('t'); ;
+                                    //01234 56 78 9  11 13 15 17 19 
+                                    //t3E98 00 00 00 13 00 00 00 13
+                                    //"t0F1 4 34 00 00 40 9633"
 
-                                string toText = press.ToString();
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Break.getDataByteNum() * 2);
+                                    string data = mess.Substring(byteLoc, 2);
+                                    double press = Convert.ToInt16(data, 16);
 
-                                breakPress = press;
+                                    string toText = press.ToString();
 
-                                printMessage(string.Format("message : {0} ",mess));
-                                printMessage(string.Format("value hex : {0} ",data));
-                                printMessage(string.Format("value dec : {0} ", press));
+                                    breakPress = press;
 
+                                    printMessage(string.Format("message : {0} ", mess));
+                                    printMessage(string.Format("value hex : {0} ", data));
+                                    printMessage(string.Format("value dec : {0} ", press));
+
+                                }
+
+                                if (mess.Contains("t" + CanMessageId_Gas.getMesID()) && true)
+                                {
+                                    int t_loc = mess.IndexOf('t'); ;
+                                    //01234 56 78 9  11 13 15 17 19 
+                                    //t3E98 00 00 00 13 00 00 00 13
+
+                                    //"t0F1 4 34 00 00 40 9633"
+
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Gas.getDataByteNum() * 2);
+                                    string data = mess.Substring(byteLoc, 2);
+
+                                    double press = Convert.ToInt16(data, 16);
+
+                                    string toText = press.ToString();
+
+                                    gasPress = press;
+
+                                    printMessage(string.Format("message : {0} ", mess));
+                                    printMessage(string.Format("value hex : {0} ", data));
+                                    printMessage(string.Format("value dec : {0} ", press));
+
+                                }
                             }
-
-                            if (mess.Contains("t" + CanMessageId_Gas.getMesID()) && true)
+                            catch
                             {
-                                int t_loc = mess.IndexOf('t'); ;
-                                //01234 56 78 9  11 13 15 17 19 
-                                //t3E98 00 00 00 13 00 00 00 13
-
-                                //"t0F1 4 34 00 00 40 9633"
-
-                                int byteLoc = t_loc + 5 + (CanMessageId_Gas.getDataByteNum() * 2);
-                                string data = mess.Substring(byteLoc, 2);
-
-                                double press = Convert.ToInt16(data, 16);
-                                
-                                string toText = press.ToString();
-
-                                gasPress = press;
-
-                                printMessage(string.Format("message : {0} ", mess));
-                                printMessage(string.Format("value hex : {0} ", data));
-                                printMessage(string.Format("value dec : {0} ", press));
-
+                                printMessage("Error filtering messege-----------------------------------");
                             }
                         }
 
+                        }
+                        catch
+                        {
+                            printMessage("Error recive buffer-------------------------------------");
+                        }
                     }
                     else
                     {
                         temp = receiveBuffer;
                     }
+
 
                     receiveBuffer = "";
 
