@@ -16,7 +16,18 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             main mainProgram = new main();
-            mainProgram.start();
+            while (true)
+            {
+                try
+                {
+                    mainProgram.start();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(string.Format("Main program error - {0}", e.Message));
+                }
+            }
+            
         }
 
         

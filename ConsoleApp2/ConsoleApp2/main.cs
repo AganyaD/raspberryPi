@@ -105,12 +105,21 @@ namespace ConsoleApp2
 
         void printMessage(string mes)
         {
-            Console.WriteLine(mes);
-            if (interface_port!= null)
+            try
             {
-                if (interface_port.IsOpen)
-                    interface_port.WriteLine(mes+"\r");
+                Console.WriteLine(mes);
+
+                if (interface_port != null)
+                {
+                    if (interface_port.IsOpen)
+                        interface_port.WriteLine(mes + "\r");
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
             
             
         }
@@ -860,9 +869,9 @@ namespace ConsoleApp2
 
                                     breakPress = press;
 
-                                    printMessage(string.Format("message : {0} ", mess));
-                                    printMessage(string.Format("value hex : {0} ", data));
-                                    printMessage(string.Format("value dec : {0} ", press));
+                                    //printMessage(string.Format("message : {0} ", mess));
+                                    //printMessage(string.Format("value hex : {0} ", data));
+                                    //printMessage(string.Format("value dec : {0} ", press));
 
                                 }
 
@@ -883,9 +892,9 @@ namespace ConsoleApp2
 
                                     gasPress = press;
 
-                                    printMessage(string.Format("message : {0} ", mess));
-                                    printMessage(string.Format("value hex : {0} ", data));
-                                    printMessage(string.Format("value dec : {0} ", press));
+                                    //printMessage(string.Format("message : {0} ", mess));
+                                    //printMessage(string.Format("value hex : {0} ", data));
+                                    //printMessage(string.Format("value dec : {0} ", press));
 
                                 }
                             }
