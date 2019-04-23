@@ -287,7 +287,7 @@ namespace ConsoleApp2
             printMessage("init GPIOs");
             Console.WriteLine("---------------------------------");
             initGpios();
-            printMessage("start python prosses");
+            //printMessage("start python prosses");
 
             Console.WriteLine("---------------------------------");
             printPorts();
@@ -384,8 +384,9 @@ namespace ConsoleApp2
             Thread.Sleep(100);
             File.WriteAllText("exit", "0");
             Thread.Sleep(100);
-            printMessage("Open python process");
-            pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
+
+            //printMessage("Open python process");
+            //pythonProsses("sudo python /home/pi/Desktop/aganya/rpiApp/ConsoleApp2/ConsoleApp2/bin/Debug/pwm.py");
 
             Thread.Sleep(100);
 
