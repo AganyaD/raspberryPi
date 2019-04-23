@@ -33,13 +33,9 @@ namespace ConsoleApp2
         CanLocationData CanMessageId_Gas = new CanLocationData("0C9", 4);
         class CanLocationData
         {
-            string MessageId;
-            int dataByteNum;
-            /// <summary>
-            /// dataByteNum = 0-7
-            /// </summary>
-            /// <param name="MessageId"></param>
-            /// <param name="dataByteNum"></param>
+            public string MessageId { get; set; }
+            public int dataByteNum  { get; set; }
+
             public CanLocationData(string MessageId, int dataByteNum)
             {
                 this.MessageId = MessageId;
@@ -394,6 +390,7 @@ namespace ConsoleApp2
 
             new Thread(() =>
             {
+                printMessage("main port Read thread start");
                 while (true)
                 {
                     try
@@ -855,14 +852,14 @@ namespace ConsoleApp2
                                 string mess = split[i];
                                 //t7E8803410D0055555555
 
-                                if (mess.Contains("t" + CanMessageId_Break.getMesID()) && true)
+                                if (mess.Contains("t" + CanMessageId_Break.MessageId) && true)
                                 {
                                     int t_loc = mess.IndexOf('t'); ;
                                     //01234 56 78 9  11 13 15 17 19 
                                     //t3E98 00 00 00 13 00 00 00 13
                                     //"t0F1 4 34 00 00 40 9633"
 
-                                    int byteLoc = t_loc + 5 + (CanMessageId_Break.getDataByteNum() * 2);
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Break.dataByteNum * 2);
                                     string data = mess.Substring(byteLoc, 2);
                                     double press = Convert.ToInt16(data, 16);
 
@@ -870,13 +867,13 @@ namespace ConsoleApp2
 
                                     breakPress = press;
 
-                                    //printMessage(string.Format("message : {0} ", mess));
-                                    //printMessage(string.Format("value hex : {0} ", data));
-                                    //printMessage(string.Format("value dec : {0} ", press));
+                                    printMessage(string.Format("message : {0} ", mess));
+                                    printMessage(string.Format("value hex : {0} ", data));
+                                    printMessage(string.Format("value dec : {0} ", press));
 
                                 }
 
-                                if (mess.Contains("t" + CanMessageId_Gas.getMesID()) && true)
+                                if (mess.Contains("t" + CanMessageId_Gas.MessageId) && true)
                                 {
                                     int t_loc = mess.IndexOf('t'); ;
                                     //01234 56 78 9  11 13 15 17 19 
@@ -884,7 +881,7 @@ namespace ConsoleApp2
 
                                     //"t0F1 4 34 00 00 40 9633"
 
-                                    int byteLoc = t_loc + 5 + (CanMessageId_Gas.getDataByteNum() * 2);
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Gas.dataByteNum * 2);
                                     string data = mess.Substring(byteLoc, 2);
 
                                     double press = Convert.ToInt16(data, 16);
@@ -893,9 +890,9 @@ namespace ConsoleApp2
 
                                     gasPress = press;
 
-                                    //printMessage(string.Format("message : {0} ", mess));
-                                    //printMessage(string.Format("value hex : {0} ", data));
-                                    //printMessage(string.Format("value dec : {0} ", press));
+                                    printMessage(string.Format("message : {0} ", mess));
+                                    printMessage(string.Format("value hex : {0} ", data));
+                                    printMessage(string.Format("value dec : {0} ", press));
 
                                 }
                             }

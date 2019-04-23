@@ -35,3 +35,4 @@ C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\5
 C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\6
 C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\pwm.py
 C:\Users\USER\Desktop\AganyaDejen\Rpi\ConsoleApp2\ConsoleApp2\bin\Debug\exit
+C:\Users\Aganya.D\Desktop\GitT\rpiApp\ConsoleApp2\ConsoleApp2\bin\Debug\exit
