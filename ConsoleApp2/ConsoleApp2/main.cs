@@ -352,17 +352,7 @@ namespace ConsoleApp2
                 return;
             }
             
-            printMessage("Start!!!!!!!!!!!!!!!!");
 
-
-            Thread.Sleep(500);
-            main_port.Write("C\r");
-            Thread.Sleep(500);
-            main_port.Write("C\r");
-            Thread.Sleep(500);
-            main_port.Write("S6\r");
-            Thread.Sleep(500);
-            main_port.Write("O\r");
 
 
             double tempBreakPress = 0;
@@ -386,7 +376,11 @@ namespace ConsoleApp2
 
             Thread.Sleep(100);
 
+
             ledTest();
+            Thread.Sleep(1000);
+
+            printMessage("Start!!!!!!!!!!!!!!!!");
 
             new Thread(() =>
             {
@@ -401,6 +395,15 @@ namespace ConsoleApp2
                     { printMessage("fail read thread exsaption"); }
                 }
             }).Start();
+
+            Thread.Sleep(500);
+            main_port.Write("C\r");
+            Thread.Sleep(500);
+            main_port.Write("C\r");
+            Thread.Sleep(500);
+            main_port.Write("S6\r");
+            Thread.Sleep(500);
+            main_port.Write("O\r");
 
             while (true)
             {
