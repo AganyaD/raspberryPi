@@ -852,14 +852,14 @@ namespace ConsoleApp2
                                 string mess = split[i];
                                 //t7E8803410D0055555555
 
-                                if (mess.Contains("t" + "0F1"))// CanMessageId_Break.MessageId) && true)
+                                if (mess.Contains("t" + CanMessageId_Break.MessageId) && true)
                                 {
                                     int t_loc = mess.IndexOf('t'); ;
-                                        //01234 56 78 9  11 13 15 17 19 
-                                        //t3E98 00 00 00 13 00 00 00 13
-                                        //"t0F1 4 34 00 00 40 9633"
+                                    //01234 56 78 9  11 13 15 17 19 
+                                    //t3E98 00 00 00 13 00 00 00 13
+                                    //"t0F1 4 34 00 00 40 9633"
 
-                                    int byteLoc = t_loc + 7;//  + (CanMessageId_Break.dataByteNum * 2);
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Break.dataByteNum * 2);
                                     string data = mess.Substring(byteLoc, 2);
                                     double press = Convert.ToInt16(data, 16);
 
@@ -873,15 +873,15 @@ namespace ConsoleApp2
 
                                 }
 
-                                if (mess.Contains("t" + "0C9"))//CanMessageId_Gas.MessageId) && true)
+                                if (mess.Contains("t" + CanMessageId_Gas.MessageId) && true)
                                 {
-                                    int t_loc = mess.IndexOf('t');
-                                        //01234 56 78 9  11 13 15 17 19 
-                                        //t3E98 00 00 00 13 00 00 00 13
+                                    int t_loc = mess.IndexOf('t'); ;
+                                    //01234 56 78 9  11 13 15 17 19 
+                                    //t3E98 00 00 00 13 00 00 00 13
 
-                                        //"t0F1 4 34 00 00 40 9633"
+                                    //"t0F1 4 34 00 00 40 9633"
 
-                                    int byteLoc = t_loc + 13;// + (CanMessageId_Gas.dataByteNum * 2);
+                                    int byteLoc = t_loc + 5 + (CanMessageId_Gas.dataByteNum * 2);
                                     string data = mess.Substring(byteLoc, 2);
 
                                     double press = Convert.ToInt16(data, 16);
