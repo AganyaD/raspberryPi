@@ -138,6 +138,7 @@ namespace ConsoleApp2
             //////////LedList.Add(new Gpio(16));
             //////////LedList.Add(new Gpio(20));
             ///
+            levelsValue = new Dictionary<string, int>();
             printMessage("set all GPIOs as 0");
             levelsValue.Add("26", 0);
             levelsValue.Add("19", 0);
