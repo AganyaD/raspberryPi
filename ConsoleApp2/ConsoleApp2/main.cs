@@ -138,7 +138,7 @@ namespace ConsoleApp2
             //////////LedList.Add(new Gpio(16));
             //////////LedList.Add(new Gpio(20));
             ///
-
+            printMessage("set all GPIOs as 0");
             levelsValue.Add("26", 0);
             levelsValue.Add("19", 0);
             levelsValue.Add("13", 0);
@@ -147,6 +147,7 @@ namespace ConsoleApp2
             levelsValue.Add("21", 0);
 
             //LedList.Add(new Gpio(21));
+            printMessage("set mode concrol pins");
             s0 = new Gpio(23);
             s1 = new Gpio(24);
             if (debug)
@@ -281,11 +282,12 @@ namespace ConsoleApp2
 
             Console.WriteLine("---------------------------------");
             printMessage("init GPIOs");
-            Console.WriteLine("---------------------------------");
             initGpios();
+            Console.WriteLine("---------------------------------");
             //printMessage("start python prosses");
 
             Console.WriteLine("---------------------------------");
+            printMessage("init GPIOs");
             printPorts();
             Console.WriteLine("---------------------------------");
             printMessage("set serial port");
